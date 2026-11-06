@@ -1,0 +1,6 @@
+{
+  "code": "SERVICE_UNAVAILABLE",
+  "statusCode": 503,
+  "description": "Claim service unavailable.",
+  "response": null
+}

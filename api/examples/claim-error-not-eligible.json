@@ -1,0 +1,6 @@
+{
+  "code": "NOT_ELIGIBLE",
+  "statusCode": 403,
+  "description": "This reward isn't available on this account.",
+  "response": null
+}

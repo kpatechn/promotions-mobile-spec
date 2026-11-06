@@ -1,0 +1,1146 @@
+openapi: 3.1.0
+info:
+  title: PlayerHub Promotions API (Mobile)
+  version: 2.1.0-proposed
+  description: |
+    Proposed v2.1 of the player promotions endpoint, extending the current
+    /gem/v2/game/promotions response with the fields the mobile promotions
+    screens need, plus a new claim endpoint.
+
+    Fields marked "x-new: true" do not exist in today's response.
+    All datetimes carry an offset or Z. Display times in `response.timezone`.
+servers:
+- url: https://chickasaw-dev.playerhub.ai
+  description: Development
+tags:
+- name: Promotions
+paths:
+  /gem/v2/game/promotions:
+    get:
+      tags:
+      - Promotions
+      operationId: listPlayerPromotions
+      summary: List running promotions for the signed-in player
+      description: |
+        Returns every running promotion the player is eligible for, with goal
+        progress and rewards. Test promotions must be excluded server-side.
+      responses:
+        '200':
+          description: Promotions retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromotionsEnvelope'
+              examples:
+                full:
+                  summary: Five running promotions (608 prizes trimmed to 2 of 13)
+                  value:
+                    code: DS00
+                    statusCode: 200
+                    description: Active running promotions for player retrieved successfully.
+                    response:
+                      playerCard: Y1003014342
+                      corporateId: '11'
+                      tenantId: '11001'
+                      serverTime: '2026-11-06T15:00:00Z'
+                      timezone: America/Chicago
+                      lastUpdated: '2026-11-06T14:58:12Z'
+                      totalEligiblePromotions: 5
+                      totalAvailablePrizes: 13
+                      totalAvailablePrizeValue:
+                        amount: 195
+                        currency: USD
+                      promotions:
+                      - promotionId: 608
+                        proName: New Member Promotion
+                        proType: 1
+                        proTypeName: earn_and_get
+                        propertyName: WinStar
+                        proShortDescription: It pays to play with Club Passport.
+                        proDescription: Sign up today to earn up to $100 rewards play on your first day
+                          of membership...
+                        proImageUrl: https://dkr2rmsityotp.cloudfront.net/wp-content/uploads/2020/05/ws-25-jan-0122_PLAYS_New-Member-1920x1080-1.01-DH.png
+                        imageAltText: Club Passport new member welcome banner
+                        termsUrl: https://dkr2rmsityotp.cloudfront.net/wp-content/uploads/2020/05/New-Member-Promotion-27-Rules-1.pdf
+                        proStartDate: '2026-10-12T07:00:00-05:00'
+                        proEndDate: '2026-11-11T22:00:00-06:00'
+                        eligibilityWindow: null
+                        activeWindows: []
+                        nextWindowStart: null
+                        proStatus: 190
+                        statusDescription: Running
+                        isEligible: true
+                        qualifierLogic: independent
+                        maxRewardValue:
+                          amount: 195
+                          currency: USD
+                        hasAvailablePrizes: true
+                        availablePrizeCount: 13
+                        availablePrizeValue:
+                          amount: 195
+                          currency: USD
+                        totalQualifiers: 1
+                        completedQualifiers: 1
+                        qualifiers:
+                        - qualifierId: 110
+                          qualifierName: Winstart Club Passport Member
+                          displayName: Join Club Passport
+                          description: Passportmember
+                          howToQualify: Sign up at any Players Club.
+                          priority: 1
+                          isQualified: true
+                          status: Awarded
+                          metricKey: membership
+                          periodStart: null
+                          periodEnd: null
+                          rewardPreview:
+                            type: reward_play
+                            value: 15
+                            currency: USD
+                            label: $15 Reward Play
+                            quantity: 13
+                          progress:
+                            targetValue: 1
+                            currentValue: 1
+                            remainingValue: 0
+                            unit: Points
+                            progressPercentage: 100
+                            progressText: 1 of 1 point completed
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        availablePrizes:
+                        - bucketId: 54845
+                          refId: 636d5235-6ad3-498d-8504-f9793ccffc6d
+                          qualifierId: 110
+                          prizeId: 158
+                          rewardName: New Member Welcome Reward
+                          rewardType: $15 Reward Play
+                          rewardValue: 15
+                          currency: USD
+                          status: available
+                          statusCode: 100
+                          isClaimable: true
+                          redeemedValue: null
+                          balanceValue: 1
+                          balanceUnit: count
+                          redemptionDate: null
+                          expiryDate: '2026-11-11T23:59:59.999999Z'
+                          redemptionInstructions: Insert your Club Passport card at any participating
+                            game.
+                          claimedTo: null
+                        - bucketId: 54844
+                          refId: c9809443-32e5-4fe2-9247-cd29fe8eedae
+                          qualifierId: 110
+                          prizeId: 158
+                          rewardName: New Member Welcome Reward
+                          rewardType: $15 Reward Play
+                          rewardValue: 15
+                          currency: USD
+                          status: available
+                          statusCode: 100
+                          isClaimable: true
+                          redeemedValue: null
+                          balanceValue: 1
+                          balanceUnit: count
+                          redemptionDate: null
+                          expiryDate: '2026-11-11T23:59:59.999999Z'
+                          redemptionInstructions: Insert your Club Passport card at any participating
+                            game.
+                          claimedTo: null
+                        redeemedPrizes:
+                        - bucketId: 54846
+                          refId: 0b1f6a2e-7c44-4d1a-9e0b-2f3c8a9d1e55
+                          qualifierId: 110
+                          prizeId: 158
+                          rewardName: New Member Welcome Reward
+                          rewardType: $15 Reward Play
+                          rewardValue: 15
+                          currency: USD
+                          status: claimed
+                          statusCode: 200
+                          isClaimable: false
+                          redeemedValue: 15
+                          balanceValue: 0
+                          balanceUnit: count
+                          redemptionDate: '2026-11-06T14:40:03Z'
+                          expiryDate: '2026-11-11T23:59:59.999999Z'
+                          redemptionInstructions: Insert your Club Passport card at any participating
+                            game.
+                          claimedTo: card
+                      - promotionId: 627
+                        proName: 7-Day Active Gaming Challenge
+                        proType: 3
+                        proTypeName: streak
+                        propertyName: WinStar
+                        proShortDescription: Play 7 days consecutively and earn 500 bonus points
+                        proDescription: Complete 7 active days of play within the weekly cycle to win
+                          bonus rewards.
+                        proImageUrl: https://thewinstarcasino.com/wp-content/uploads/2026/07/winstar-homepage-1200x675-1.jpg
+                        imageAltText: WinStar casino floor
+                        termsUrl: ''
+                        proStartDate: '2026-10-01T00:00:00-05:00'
+                        proEndDate: '2026-11-30T23:59:00-06:00'
+                        eligibilityWindow: null
+                        activeWindows: []
+                        nextWindowStart: null
+                        proStatus: 190
+                        statusDescription: Running
+                        isEligible: true
+                        qualifierLogic: independent
+                        maxRewardValue:
+                          amount: 500
+                          currency: POINTS
+                        hasAvailablePrizes: false
+                        availablePrizeCount: 0
+                        availablePrizeValue: null
+                        totalQualifiers: 1
+                        completedQualifiers: 0
+                        qualifiers:
+                        - qualifierId: 130
+                          qualifierName: 7-Day Consecutive Gaming Play
+                          displayName: Play 7 days in a row
+                          description: Play on 7 consecutive days to earn 500 bonus points.
+                          howToQualify: Play any game with your card each day.
+                          priority: 1
+                          isQualified: false
+                          status: In-Progress
+                          metricKey: consecutive_play_days
+                          periodStart: '2026-11-04T00:00:00-06:00'
+                          periodEnd: '2026-11-10T23:59:59-06:00'
+                          rewardPreview:
+                            type: bonus_points
+                            value: 500
+                            currency: POINTS
+                            label: 500 bonus points
+                            quantity: 1
+                          progress:
+                            targetValue: 7
+                            currentValue: 2
+                            remainingValue: 5
+                            unit: Days
+                            progressPercentage: 29
+                            progressText: 2 of 7 days
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak:
+                              daysCompleted:
+                              - '2026-11-04'
+                              - '2026-11-05'
+                              todayStatus: pending
+                              resetsAt: '2026-11-06T23:59:59-06:00'
+                            milestones: []
+                        availablePrizes: []
+                        redeemedPrizes: []
+                      - promotionId: 615
+                        proName: New Member Promotion
+                        proType: 25
+                        proTypeName: tiered_earn
+                        propertyName: WinStar
+                        proShortDescription: New members earn up to $100 in Rewards Play on their first
+                          day by earning 1, 25, 50, and 250 points.
+                        proDescription: New Club Passport members at WinStar can earn up to $100 in Rewards
+                          Play on their first day of membership...
+                        proImageUrl: ''
+                        imageAltText: ''
+                        termsUrl: https://www.winstar.com/promotion/new-member-promotion/
+                        proStartDate: '2026-10-21T00:00:00-05:00'
+                        proEndDate: '2026-12-31T23:59:00-06:00'
+                        eligibilityWindow:
+                          start: '2026-11-06T00:00:00-06:00'
+                          end: '2026-11-06T23:59:59-06:00'
+                          label: First day of membership
+                        activeWindows: []
+                        nextWindowStart: null
+                        proStatus: 190
+                        statusDescription: Running
+                        isEligible: true
+                        qualifierLogic: independent
+                        maxRewardValue:
+                          amount: 100
+                          currency: USD
+                        hasAvailablePrizes: false
+                        availablePrizeCount: 0
+                        availablePrizeValue: null
+                        totalQualifiers: 4
+                        completedQualifiers: 1
+                        qualifiers:
+                        - qualifierId: 119
+                          qualifierName: Sum of points 15
+                          displayName: Earn your first point
+                          description: Earn 1 point today.
+                          howToQualify: Play any game with your card.
+                          priority: 1
+                          isQualified: true
+                          status: Awarded
+                          metricKey: daily_points
+                          periodStart: '2026-11-06T00:00:00-06:00'
+                          periodEnd: '2026-11-06T23:59:59-06:00'
+                          rewardPreview:
+                            type: reward_play
+                            value: 15
+                            currency: USD
+                            label: $15 Reward Play
+                            quantity: 1
+                          progress:
+                            targetValue: 1
+                            currentValue: 18
+                            remainingValue: 0
+                            unit: Points
+                            progressPercentage: 100
+                            progressText: Completed
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        - qualifierId: 118
+                          qualifierName: Sum of point 20
+                          displayName: Earn 25 points
+                          description: Earn 25 points today.
+                          howToQualify: Keep playing with your card today.
+                          priority: 2
+                          isQualified: false
+                          status: In-Progress
+                          metricKey: daily_points
+                          periodStart: '2026-11-06T00:00:00-06:00'
+                          periodEnd: '2026-11-06T23:59:59-06:00'
+                          rewardPreview:
+                            type: reward_play
+                            value: 15
+                            currency: USD
+                            label: $15 Reward Play
+                            quantity: 1
+                          progress:
+                            targetValue: 25
+                            currentValue: 18
+                            remainingValue: 7
+                            unit: Points
+                            progressPercentage: 72
+                            progressText: 18 of 25 points
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        - qualifierId: 117
+                          qualifierName: Sum of Point 50
+                          displayName: Earn 50 points
+                          description: Earn 50 points today.
+                          howToQualify: Keep playing with your card today.
+                          priority: 3
+                          isQualified: false
+                          status: In-Progress
+                          metricKey: daily_points
+                          periodStart: '2026-11-06T00:00:00-06:00'
+                          periodEnd: '2026-11-06T23:59:59-06:00'
+                          rewardPreview:
+                            type: reward_play
+                            value: 20
+                            currency: USD
+                            label: $20 Reward Play
+                            quantity: 1
+                          progress:
+                            targetValue: 50
+                            currentValue: 18
+                            remainingValue: 32
+                            unit: Points
+                            progressPercentage: 36
+                            progressText: 18 of 50 points
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        - qualifierId: 114
+                          qualifierName: Sum of Points 250
+                          displayName: Earn 250 points
+                          description: Earn 250 points today.
+                          howToQualify: Keep playing with your card today.
+                          priority: 4
+                          isQualified: false
+                          status: In-Progress
+                          metricKey: daily_points
+                          periodStart: '2026-11-06T00:00:00-06:00'
+                          periodEnd: '2026-11-06T23:59:59-06:00'
+                          rewardPreview:
+                            type: reward_play
+                            value: 50
+                            currency: USD
+                            label: $50 Reward Play
+                            quantity: 1
+                          progress:
+                            targetValue: 250
+                            currentValue: 18
+                            remainingValue: 232
+                            unit: Points
+                            progressPercentage: 7
+                            progressText: 18 of 250 points
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        availablePrizes: []
+                        redeemedPrizes: []
+                      - promotionId: 631
+                        proName: Month-End Promotion - 30th Special
+                        proType: 1
+                        proTypeName: earn_and_get
+                        propertyName: WinStar
+                        proShortDescription: Play on the 30th of this month to win 500 Points
+                        proDescription: Exclusive monthly promotion on every 30th between 9:00 AM and
+                          10:00 PM
+                        proImageUrl: ''
+                        imageAltText: ''
+                        termsUrl: ''
+                        proStartDate: '2026-10-30T00:00:00-05:00'
+                        proEndDate: '2026-11-30T23:00:00-06:00'
+                        eligibilityWindow: null
+                        activeWindows:
+                        - start: '2026-11-30T09:00:00-06:00'
+                          end: '2026-11-30T22:00:00-06:00'
+                        nextWindowStart: '2026-11-30T09:00:00-06:00'
+                        proStatus: 190
+                        statusDescription: Running
+                        isEligible: true
+                        qualifierLogic: independent
+                        maxRewardValue:
+                          amount: 500
+                          currency: POINTS
+                        hasAvailablePrizes: false
+                        availablePrizeCount: 0
+                        availablePrizeValue: null
+                        totalQualifiers: 1
+                        completedQualifiers: 0
+                        qualifiers:
+                        - qualifierId: 115
+                          qualifierName: 20 – Points Earned
+                          displayName: Earn 20 points on the 30th
+                          description: Earn more than 20 points between 9:00 AM and 10:00 PM on the 30th.
+                          howToQualify: Play with your card on Nov 30 between 9 AM and 10 PM.
+                          priority: 1
+                          isQualified: false
+                          status: Upcoming
+                          metricKey: window_points
+                          periodStart: '2026-11-30T09:00:00-06:00'
+                          periodEnd: '2026-11-30T22:00:00-06:00'
+                          rewardPreview:
+                            type: bonus_points
+                            value: 500
+                            currency: POINTS
+                            label: 500 points
+                            quantity: 1
+                          progress:
+                            targetValue: 20
+                            currentValue: 0
+                            remainingValue: 20
+                            unit: Points
+                            progressPercentage: 0
+                            progressText: 0 of 20 points
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        availablePrizes: []
+                        redeemedPrizes: []
+                      - promotionId: 614
+                        proName: Early Bird & Night Owl
+                        proType: 3
+                        proTypeName: recurring_earn
+                        propertyName: Riverwind
+                        proShortDescription: Earn points every Wednesday for food rewards, Bonus Play,
+                          and drawing entries based on age eligibility.
+                        proDescription: Earn points every Wednesday to qualify for food rewards, Bonus
+                          Play, and drawing entries. Early Bird is for members aged 50+, and Night Owl
+                          is for members aged 18–49.
+                        proImageUrl: ''
+                        imageAltText: ''
+                        termsUrl: https://www.riverwind.com/promotion/early-bird-night-owl/
+                        proStartDate: '2026-10-20T00:00:00-05:00'
+                        proEndDate: '2026-11-15T22:00:00-06:00'
+                        eligibilityWindow: null
+                        activeWindows:
+                        - start: '2026-11-11T00:00:00-06:00'
+                          end: '2026-11-11T23:59:59-06:00'
+                        nextWindowStart: '2026-11-11T00:00:00-06:00'
+                        proStatus: 190
+                        statusDescription: Running
+                        isEligible: true
+                        qualifierLogic: independent
+                        maxRewardValue: null
+                        hasAvailablePrizes: false
+                        availablePrizeCount: 0
+                        availablePrizeValue: null
+                        totalQualifiers: 2
+                        completedQualifiers: 0
+                        qualifiers:
+                        - qualifierId: 116
+                          qualifierName: 100 point Earned
+                          displayName: Earn 100 points on Wednesday
+                          description: Earn 100 points on a Wednesday.
+                          howToQualify: Play with your card on Wednesday.
+                          priority: 1
+                          isQualified: false
+                          status: Upcoming
+                          metricKey: wednesday_points
+                          periodStart: '2026-11-11T00:00:00-06:00'
+                          periodEnd: '2026-11-11T23:59:59-06:00'
+                          rewardPreview:
+                            type: bonus_play
+                            value: null
+                            currency: USD
+                            label: Bonus Play
+                            quantity: 1
+                          progress:
+                            targetValue: 100
+                            currentValue: 0
+                            remainingValue: 100
+                            unit: Points
+                            progressPercentage: 0
+                            progressText: 0 of 100 points
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        - qualifierId: 115
+                          qualifierName: 20 – Points Earned
+                          displayName: Earn 20 points on Wednesday
+                          description: Earn 20 points on a Wednesday.
+                          howToQualify: Play with your card on Wednesday.
+                          priority: 2
+                          isQualified: false
+                          status: Upcoming
+                          metricKey: wednesday_points
+                          periodStart: '2026-11-11T00:00:00-06:00'
+                          periodEnd: '2026-11-11T23:59:59-06:00'
+                          rewardPreview:
+                            type: food_reward
+                            value: null
+                            currency: null
+                            label: Food reward
+                            quantity: 1
+                          progress:
+                            targetValue: 20
+                            currentValue: 0
+                            remainingValue: 20
+                            unit: Points
+                            progressPercentage: 0
+                            progressText: 0 of 20 points
+                            lastUpdated: '2026-11-06T14:51:00Z'
+                            streak: null
+                            milestones: []
+                        availablePrizes: []
+                        redeemedPrizes: []
+        '401':
+          $ref: '#/components/responses/Error'
+        '503':
+          $ref: '#/components/responses/Error'
+  /gem/v2/game/promotions/{promotionId}/prizes/{refId}/claim:
+    post:
+      tags:
+      - Promotions
+      operationId: claimPrize
+      x-new: true
+      summary: Claim one available prize
+      description: |
+        Claims a single prize. Idempotent per Idempotency-Key: a retry with the
+        same key returns the original result, never ALREADY_CLAIMED.
+      parameters:
+      - name: promotionId
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 608
+      - name: refId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 636d5235-6ad3-498d-8504-f9793ccffc6d
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Prize claimed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimEnvelope'
+              example:
+                code: DS00
+                statusCode: 200
+                description: Prize claimed.
+                response:
+                  promotionId: 608
+                  prize:
+                    bucketId: 54845
+                    refId: 636d5235-6ad3-498d-8504-f9793ccffc6d
+                    status: claimed
+                    isClaimable: false
+                    rewardValue: 15
+                    currency: USD
+                    redemptionDate: '2026-11-06T15:02:41Z'
+                    claimedTo: card
+                    prizeId: 158
+                    rewardName: New Member Welcome Reward
+                    expiryDate: '2026-11-11T23:59:59.999999Z'
+                  availablePrizeCount: 12
+                  availablePrizeValue:
+                    amount: 180
+                    currency: USD
+        '403':
+          description: NOT_ELIGIBLE. Player no longer qualifies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+              example:
+                code: NOT_ELIGIBLE
+                statusCode: 403
+                description: This reward isn't available on this account.
+                response: null
+        '409':
+          description: PRIZE_EXPIRED or ALREADY_CLAIMED.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+              examples:
+                expired:
+                  value:
+                    code: PRIZE_EXPIRED
+                    statusCode: 409
+                    description: This reward expired on 2026-11-11.
+                    response: null
+                alreadyClaimed:
+                  value:
+                    code: ALREADY_CLAIMED
+                    statusCode: 409
+                    description: This reward was already claimed.
+                    response: null
+        '503':
+          description: SERVICE_UNAVAILABLE. Safe to retry with the same Idempotency-Key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+              example:
+                code: SERVICE_UNAVAILABLE
+                statusCode: 503
+                description: Claim service unavailable.
+                response: null
+components:
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  schemas:
+    Money:
+      type: object
+      x-new: true
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+          example: 195
+        currency:
+          type: string
+          description: ISO 4217 code or POINTS
+          example: USD
+    TimeWindow:
+      type: object
+      x-new: true
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        label:
+          type:
+          - string
+          - 'null'
+          example: First day of membership
+    PromotionsEnvelope:
+      type: object
+      required:
+      - code
+      - statusCode
+      - response
+      properties:
+        code:
+          type: string
+          example: DS00
+        statusCode:
+          type: integer
+          example: 200
+        description:
+          type: string
+        response:
+          $ref: '#/components/schemas/PromotionsResponse'
+    PromotionsResponse:
+      type: object
+      required:
+      - playerCard
+      - serverTime
+      - timezone
+      - promotions
+      properties:
+        playerCard:
+          type: string
+          example: Y1003014342
+        corporateId:
+          type: string
+          example: '11'
+        tenantId:
+          type: string
+          example: '11001'
+        serverTime:
+          type: string
+          format: date-time
+          x-new: true
+          description: Server clock for countdowns
+        timezone:
+          type: string
+          x-new: true
+          example: America/Chicago
+          description: IANA zone for display
+        lastUpdated:
+          type: string
+          format: date-time
+          x-new: true
+          description: When progress data was last refreshed
+        totalEligiblePromotions:
+          type: integer
+          example: 5
+        totalAvailablePrizes:
+          type: integer
+          x-new: true
+          example: 13
+        totalAvailablePrizeValue:
+          x-new: true
+          anyOf:
+          - $ref: '#/components/schemas/Money'
+          - type: 'null'
+        promotions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Promotion'
+    Promotion:
+      type: object
+      required:
+      - promotionId
+      - proName
+      - proStartDate
+      - proEndDate
+      - isEligible
+      - hasAvailablePrizes
+      - qualifiers
+      - availablePrizes
+      - redeemedPrizes
+      properties:
+        promotionId:
+          type: integer
+          example: 608
+        proName:
+          type: string
+        proType:
+          type: integer
+          description: Legacy numeric type
+        proTypeName:
+          type: string
+          x-new: true
+          enum:
+          - earn_and_get
+          - streak
+          - tiered_earn
+          - recurring_earn
+          - drawing
+          - other
+        propertyName:
+          type: string
+          x-new: true
+          example: WinStar
+        proShortDescription:
+          type: string
+        proDescription:
+          type: string
+          description: Plain text; newlines allowed
+        proImageUrl:
+          type: string
+          description: Direct image URL (jpg, png, webp) or empty string
+        imageAltText:
+          type: string
+          x-new: true
+        termsUrl:
+          type: string
+          description: Rules page or PDF, or empty string
+        proStartDate:
+          type: string
+          format: date-time
+        proEndDate:
+          type: string
+          format: date-time
+        eligibilityWindow:
+          x-new: true
+          description: The player's personal window when narrower than the promotion (for example, first
+            day only)
+          anyOf:
+          - $ref: '#/components/schemas/TimeWindow'
+          - type: 'null'
+        activeWindows:
+          type: array
+          x-new: true
+          description: Upcoming times when play counts, for time-restricted promotions
+          items:
+            $ref: '#/components/schemas/TimeWindow'
+        nextWindowStart:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          x-new: true
+        proStatus:
+          type: integer
+          example: 190
+        statusDescription:
+          type: string
+          example: Running
+        isEligible:
+          type: boolean
+        qualifierLogic:
+          type: string
+          x-new: true
+          enum:
+          - independent
+          - sequential
+          - all
+        maxRewardValue:
+          x-new: true
+          anyOf:
+          - $ref: '#/components/schemas/Money'
+          - type: 'null'
+        hasAvailablePrizes:
+          type: boolean
+        availablePrizeCount:
+          type: integer
+          x-new: true
+        availablePrizeValue:
+          x-new: true
+          anyOf:
+          - $ref: '#/components/schemas/Money'
+          - type: 'null'
+        totalQualifiers:
+          type: integer
+        completedQualifiers:
+          type: integer
+        qualifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Qualifier'
+        availablePrizes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prize'
+        redeemedPrizes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prize'
+    Qualifier:
+      type: object
+      required:
+      - qualifierId
+      - qualifierName
+      - priority
+      - isQualified
+      - status
+      - progress
+      properties:
+        qualifierId:
+          type: integer
+        qualifierName:
+          type: string
+          description: Internal name
+        displayName:
+          type: string
+          x-new: true
+          description: Player-facing name
+        description:
+          type: string
+        howToQualify:
+          type: string
+          x-new: true
+        priority:
+          type: integer
+        isQualified:
+          type: boolean
+        status:
+          type: string
+          enum:
+          - Pending
+          - Upcoming
+          - In-Progress
+          - Awarded
+          - Expired
+        metricKey:
+          type: string
+          x-new: true
+          description: Goals with the same key share one counter
+        periodStart:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          x-new: true
+        periodEnd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          x-new: true
+        rewardPreview:
+          $ref: '#/components/schemas/RewardPreview'
+        progress:
+          $ref: '#/components/schemas/Progress'
+    RewardPreview:
+      type: object
+      x-new: true
+      required:
+      - type
+      - label
+      properties:
+        type:
+          type: string
+          enum:
+          - reward_play
+          - bonus_play
+          - bonus_points
+          - food_reward
+          - drawing_entry
+        value:
+          type:
+          - number
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        label:
+          type: string
+          example: $15 Reward Play
+        quantity:
+          type: integer
+          example: 1
+    Progress:
+      type: object
+      description: Always present, never null. Zeros when not started.
+      required:
+      - targetValue
+      - currentValue
+      - remainingValue
+      - unit
+      properties:
+        targetValue:
+          type: number
+        currentValue:
+          type: number
+        remainingValue:
+          type: number
+        unit:
+          type: string
+          example: Points
+        progressPercentage:
+          type: number
+          minimum: 0
+          maximum: 100
+        progressText:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+          x-new: true
+        streak:
+          x-new: true
+          anyOf:
+          - $ref: '#/components/schemas/Streak'
+          - type: 'null'
+        milestones:
+          type: array
+          x-new: true
+          items:
+            $ref: '#/components/schemas/Milestone'
+    Streak:
+      type: object
+      x-new: true
+      required:
+      - daysCompleted
+      - todayStatus
+      - resetsAt
+      properties:
+        daysCompleted:
+          type: array
+          items:
+            type: string
+            format: date
+        todayStatus:
+          type: string
+          enum:
+          - done
+          - pending
+          - missed
+        resetsAt:
+          type: string
+          format: date-time
+    Milestone:
+      type: object
+      x-new: true
+      required:
+      - threshold
+      - reward
+      properties:
+        threshold:
+          type: number
+        reward:
+          $ref: '#/components/schemas/RewardPreview'
+    Prize:
+      type: object
+      required:
+      - bucketId
+      - refId
+      - prizeId
+      - rewardName
+      - status
+      - isClaimable
+      - expiryDate
+      properties:
+        bucketId:
+          type: integer
+        refId:
+          type: string
+          format: uuid
+        qualifierId:
+          type: integer
+        prizeId:
+          type: integer
+        rewardName:
+          type: string
+        rewardType:
+          type: string
+          example: $15 Reward Play
+        rewardValue:
+          type: number
+          x-new: true
+          example: 15
+        currency:
+          type: string
+          x-new: true
+          example: USD
+        status:
+          type: string
+          enum:
+          - available
+          - claimed
+          - expired
+          description: Replaces the numeric status
+        statusCode:
+          type: integer
+          description: Legacy numeric status (100 = available)
+        isClaimable:
+          type: boolean
+          x-new: true
+        redeemedValue:
+          type:
+          - number
+          - 'null'
+        balanceValue:
+          type: number
+        balanceUnit:
+          type: string
+          x-new: true
+          enum:
+          - count
+          - currency
+          - points
+        redemptionDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        expiryDate:
+          type: string
+          format: date-time
+        redemptionInstructions:
+          type: string
+          x-new: true
+        claimedTo:
+          type:
+          - string
+          - 'null'
+          x-new: true
+          enum:
+          - card
+          - wallet
+          - null
+    ClaimEnvelope:
+      type: object
+      x-new: true
+      required:
+      - code
+      - statusCode
+      - response
+      properties:
+        code:
+          type: string
+          example: DS00
+        statusCode:
+          type: integer
+        description:
+          type: string
+        response:
+          type: object
+          required:
+          - promotionId
+          - prize
+          - availablePrizeCount
+          properties:
+            promotionId:
+              type: integer
+            prize:
+              $ref: '#/components/schemas/Prize'
+            availablePrizeCount:
+              type: integer
+            availablePrizeValue:
+              anyOf:
+              - $ref: '#/components/schemas/Money'
+              - type: 'null'
+    ErrorEnvelope:
+      type: object
+      required:
+      - code
+      - statusCode
+      properties:
+        code:
+          type: string
+          enum:
+          - PRIZE_EXPIRED
+          - ALREADY_CLAIMED
+          - NOT_ELIGIBLE
+          - SERVICE_UNAVAILABLE
+          - UNAUTHORIZED
+        statusCode:
+          type: integer
+        description:
+          type: string
+        response:
+          type:
+          - 'null'
+          - object
+          - string
+          - number
+          - boolean
+          - array

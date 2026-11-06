@@ -1,0 +1,6 @@
+{
+  "code": "ALREADY_CLAIMED",
+  "statusCode": 409,
+  "description": "This reward was already claimed.",
+  "response": null
+}

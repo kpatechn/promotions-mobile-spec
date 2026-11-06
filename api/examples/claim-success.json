@@ -1,0 +1,26 @@
+{
+  "code": "DS00",
+  "statusCode": 200,
+  "description": "Prize claimed.",
+  "response": {
+    "promotionId": 608,
+    "prize": {
+      "bucketId": 54845,
+      "refId": "636d5235-6ad3-498d-8504-f9793ccffc6d",
+      "status": "claimed",
+      "isClaimable": false,
+      "rewardValue": 15,
+      "currency": "USD",
+      "redemptionDate": "2026-11-06T15:02:41Z",
+      "claimedTo": "card",
+      "prizeId": 158,
+      "rewardName": "New Member Welcome Reward",
+      "expiryDate": "2026-11-11T23:59:59.999999Z"
+    },
+    "availablePrizeCount": 12,
+    "availablePrizeValue": {
+      "amount": 180,
+      "currency": "USD"
+    }
+  }
+}

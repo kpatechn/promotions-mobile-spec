@@ -1,0 +1,6 @@
+{
+  "code": "PRIZE_EXPIRED",
+  "statusCode": 409,
+  "description": "This reward expired on 2026-11-11.",
+  "response": null
+}

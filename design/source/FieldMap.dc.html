@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Display logic and claim flow</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1200px; height: 1180px; box-sizing: border-box; padding: 56px; background: #0A1324; color: #F3F6FB; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 40px">
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <h1 style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 36px; font-weight: 800">Display logic and claim flow</h1>
+    <p style="margin: 0; font-size: 15px; color: rgba(243,246,251,.72); max-width: 780px">How the app picks each card’s progress pattern from the v2.1 response, and what every claim outcome does to the screen.</p>
+  </div>
+
+  <section style="display: flex; flex-direction: column; gap: 14px">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700">Which progress pattern a card shows</h2>
+    <p style="margin: 0; font-size: 14px; color: rgba(243,246,251,.72)">Check in order and use the first match.</p>
+    <div style="display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,.08)">
+      <div style="display: grid; grid-template-columns: 56px minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, 1.6fr); background: #111D33; font-size: 12px; font-weight: 700; color: rgba(243,246,251,.7)">
+        <span style="padding: 12px 16px">Step</span><span style="padding: 12px 16px">Condition</span><span style="padding: 12px 16px">Pattern</span><span style="padding: 12px 16px">Example</span>
+      </div>
+      <sc-for list="{{rules}}" as="r" hint-placeholder-count="5">
+        <div style="display: grid; grid-template-columns: 56px minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, 1.6fr); border-top: 1px solid rgba(255,255,255,.08); font-size: 14px; align-items: center">
+          <span style="padding: 14px 16px; font-family: Montserrat, ui-sans-serif, sans-serif; font-weight: 800; color: #9CC3F5">{{r.n}}</span>
+          <span style="padding: 14px 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.5; color: #F3F6FB">{{r.cond}}</span>
+          <span style="{{r.patStyle}}">{{r.pattern}}</span>
+          <span style="padding: 14px 16px; color: rgba(243,246,251,.75); font-size: 13px">{{r.ex}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 18px">
+    <h2 style="margin: 0; font-size: 20px; font-weight: 700">Claim flow</h2>
+    <div style="display: flex; align-items: center; gap: 0">
+      <div style="display: flex; align-items: center; gap: 0; flex: none">
+        <div style="width: 170px; padding: 16px; border-radius: 16px; background: #111D33; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; font-weight: 700">Tap Claim</span>
+          <span style="font-size: 12px; line-height: 1.45; color: rgba(243,246,251,.7)">On one reward row</span>
+        </div>
+        <svg width="40" height="16" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 3l6 5-6 5" fill="none" stroke="rgba(156,195,245,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div style="width: 170px; padding: 16px; border-radius: 16px; background: #111D33; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; font-weight: 700">Confirm sheet</span>
+          <span style="font-size: 12px; line-height: 1.45; color: rgba(243,246,251,.7)">Value, expiry, where it goes</span>
+        </div>
+        <svg width="40" height="16" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 3l6 5-6 5" fill="none" stroke="rgba(156,195,245,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div style="width: 190px; padding: 16px; border-radius: 16px; background: rgba(217,185,112,.12); border: 1px solid rgba(217,185,112,.4); display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; font-weight: 700">POST …/claim</span>
+          <span style="font-size: 12px; line-height: 1.45; color: rgba(243,246,251,.75)">Button shows Claiming… and is disabled. Send Idempotency-Key.</span>
+        </div>
+        <svg width="40" height="16" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 3l6 5-6 5" fill="none" stroke="rgba(156,195,245,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding-left: 16px; border-left: 2px solid rgba(156,195,245,.4)">
+        <sc-for list="{{outcomes}}" as="o" hint-placeholder-count="5">
+          <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px 14px; border-radius: 14px; background: #111D33">
+            <span style="{{o.codeStyle}}">{{o.code}}</span>
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 14px; font-weight: 700">{{o.ui}}</span>
+              <span style="font-size: 12px; line-height: 1.45; color: rgba(243,246,251,.72)">{{o.row}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: rgba(243,246,251,.72); max-width: 900px">A timeout is treated as SERVICE_UNAVAILABLE. Try again reuses the same Idempotency-Key, so a claim that actually succeeded returns 200 instead of a duplicate. After any outcome, refresh the promotion so counts, the tab badge, and the listing stay in sync.</p>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1200,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pat = (c) => 'padding: 14px 16px; font-weight: 700; color: ' + c;
+    const rules = [
+      { n: '1', cond: 'availablePrizeCount > 0', pattern: 'Rewards ready', ex: '608 New Member: $195 ready', patStyle: pat('#D9B970') },
+      { n: '2', cond: 'nextWindowStart > serverTime', pattern: 'Upcoming window', ex: '631 30th Special: Opens Mon, Nov 30', patStyle: pat('#9CC3F5') },
+      { n: '3', cond: 'qualifiers[0].progress.streak != null', pattern: 'Streak tiles', ex: '627 7-Day Challenge: 2 of 7 days', patStyle: pat('#9CC3F5') },
+      { n: '4', cond: 'qualifiers.length > 1', pattern: 'Goal segments (detail: milestone track when metricKey matches)', ex: '615 New Member: 1 of 4 goals', patStyle: pat('#9CC3F5') },
+      { n: '5', cond: 'otherwise', pattern: 'Single bar', ex: 'currentValue of targetValue + unit', patStyle: pat('#F3F6FB') }
+    ];
+    const code = (bg, fg) => 'display: inline-flex; align-items: center; justify-content: center; height: 30px; padding: 0 10px; border-radius: 8px; font-family: \'JetBrains Mono\', ui-monospace, monospace; font-size: 11px; font-weight: 500; background: ' + bg + '; color: ' + fg;
+    const outcomes = [
+      { code: '200 DS00', ui: 'Close sheet, success toast with View', row: 'Row moves to Claimed. Summary drops by rewardValue.', codeStyle: code('rgba(217,185,112,.18)', '#D9B970') },
+      { code: '503 SERVICE_UNAVAILABLE', ui: 'Error sheet with Try again', row: 'Row unchanged. Nothing was used.', codeStyle: code('rgba(240,163,94,.16)', '#F5B97F') },
+      { code: '409 PRIZE_EXPIRED', ui: 'Expired sheet with Got it', row: 'Row shows Expired, Claim button removed.', codeStyle: code('rgba(255,255,255,.08)', '#F3F6FB') },
+      { code: '403 NOT_ELIGIBLE', ui: 'Not-eligible sheet, points to Players Club', row: 'Row unchanged until next refresh.', codeStyle: code('rgba(255,255,255,.08)', '#F3F6FB') },
+      { code: '409 ALREADY_CLAIMED', ui: 'No sheet; toast “Already claimed”', row: 'Row moves to Claimed.', codeStyle: code('rgba(156,195,245,.14)', '#9CC3F5') }
+    ];
+    return { rules, outcomes };
+  }
+}
+</script>
+</body>
+</html>

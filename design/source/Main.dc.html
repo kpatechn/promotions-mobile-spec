@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Promotions</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; background: #0A1324; color: #F3F6FB; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif; display: flex; flex-direction: column; position: relative; overflow: hidden; box-sizing: border-box">
+
+  <header style="padding: 28px 20px 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px">
+    <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+      <h1 style="margin: 0; font-family: Montserrat, ui-sans-serif, system-ui, sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.1">Promotions</h1>
+      <p style="margin: 0; font-size: 14px; color: rgba(243,246,251,.75)">{{subtitle}}</p>
+      <sc-if value="{{showUpdated}}" hint-placeholder-val="{{ true }}">
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(243,246,251,.62)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"></path></svg>{{updatedLabel}}</span>
+      </sc-if>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 6px; border-radius: 99px; background: rgba(255,255,255,.07); font-size: 13px; font-weight: 700; flex: none">
+      <span style="width: 24px; height: 24px; border-radius: 99px; background: #3DB4C6; color: #0A1324; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800">CP</span>
+      <span>Card 4342</span>
+    </div>
+  </header>
+
+  <div role="tablist" aria-label="Filter promotions" style="display: flex; gap: 8px; padding: 0 20px 14px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+      <button role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}<span style="{{t.countStyle}}">{{t.count}}</span></button>
+    </sc-for>
+  </div>
+
+  <div style="flex: 1; overflow-y: auto; padding: 4px 20px 24px; display: flex; flex-direction: column; gap: 12px">
+
+    <sc-if value="{{showStale}}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: rgba(240,163,94,.12); border: 1px solid rgba(240,163,94,.3)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5B97F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 20h.01"></path></svg>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 1px">
+          <span style="font-size: 13px; font-weight: 700; color: #F3F6FB">Showing info from 10:42 AM</span>
+          <span style="font-size: 12px; color: rgba(243,246,251,.72)">Progress may be out of date.</span>
+        </div>
+        <button onClick="{{retry}}" style="min-height: 44px; padding: 0 4px; border: 0; background: none; color: #F5B97F; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">Refresh</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{showList}}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{cards}}" as="c" hint-placeholder-count="4">
+        <a href="{{c.href}}" style="{{c.cardStyle}}">
+          <div style="display: flex; gap: 14px; align-items: flex-start">
+            <div style="{{c.thumbStyle}}">
+              <sc-if value="{{c.hasImg}}" hint-placeholder-val="{{ true }}">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{c.iconColor}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"></rect><circle cx="9" cy="10" r="2"></circle><path d="M21 16l-5-5-9 9"></path></svg>
+              </sc-if>
+              <sc-if value="{{c.noImg}}" hint-placeholder-val="{{ false }}">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D9B970" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a2 2 0 0 0 2-2h12a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H6a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path><path d="M12 9.5l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 11.6l2-.3z"></path></svg>
+              </sc-if>
+            </div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+              <div style="display: flex; align-items: center; gap: 8px">
+                <span style="{{c.endStyle}}">{{c.endLabel}}</span>
+              </div>
+              <h2 style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.3; color: #F3F6FB; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{c.name}}</h2>
+              <p style="margin: 0; font-size: 13px; line-height: 1.45; color: rgba(243,246,251,.7); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{c.short}}</p>
+            </div>
+          </div>
+
+          <sc-if value="{{c.isReady}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(217,185,112,.22)">
+              <div style="display: flex; flex-direction: column; gap: 2px">
+                <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 20px; font-weight: 800; color: #D9B970">{{c.readyTitle}}</span>
+                <span style="font-size: 12px; color: rgba(243,246,251,.72)">{{c.readySub}}</span>
+              </div>
+              <span style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 99px; background: #D9B970; color: #0A1324; font-size: 14px; font-weight: 700; white-space: nowrap">Claim rewards</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{c.isSingle}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div style="height: 8px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden">
+                <div style="{{c.barStyle}}"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px">
+                <span style="color: #F3F6FB; font-weight: 600">{{c.progressLabel}}</span>
+                <span style="color: rgba(243,246,251,.7)">{{c.toGo}}</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{c.isGoals}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; gap: 4px">
+                <sc-for list="{{c.segs}}" as="s" hint-placeholder-count="4">
+                  <div style="{{s.style}}"></div>
+                </sc-for>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; gap: 8px">
+                <span style="color: #F3F6FB; font-weight: 600">{{c.progressLabel}}</span>
+                <span style="color: rgba(243,246,251,.7); text-align: right">{{c.toGo}}</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{c.isStreak}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; gap: 6px">
+                <sc-for list="{{c.dots}}" as="d" hint-placeholder-count="7">
+                  <span style="{{d.style}}">{{d.label}}</span>
+                </sc-for>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; gap: 8px">
+                <span style="color: #F3F6FB; font-weight: 600">{{c.progressLabel}}</span>
+                <span style="color: #9CC3F5; font-weight: 700">{{c.toGo}}</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{c.isUpcoming}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(156,195,245,.08)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CC3F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+              <div style="display: flex; flex-direction: column; gap: 1px">
+                <span style="font-size: 13px; font-weight: 700; color: #F3F6FB">{{c.windowLabel}}</span>
+                <span style="font-size: 12px; color: rgba(243,246,251,.7)">{{c.windowSub}}</span>
+              </div>
+            </div>
+          </sc-if>
+        </a>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{showTabEmpty}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 64px 16px 0">
+        <div style="width: 64px; height: 64px; border-radius: 22px; background: #111D33; display: flex; align-items: center; justify-content: center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D9B970" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"></rect><path d="M12 8v13M3 12h18M12 8c-1.5-3-5-3.5-5-1s3 1 5 1c2 0 5 1.5 5-1s-3.5-2-5 1z"></path></svg>
+        </div>
+        <h2 style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 20px; font-weight: 800">No rewards ready yet</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: rgba(243,246,251,.72); max-width: 280px">When you complete a promotion goal, its rewards show up here to claim.</p>
+        <button onClick="{{goProgress}}" style="margin-top: 8px; height: 44px; padding: 0 20px; border-radius: 99px; border: 0; background: rgba(255,255,255,.08); color: #F3F6FB; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">See promotions in progress</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{showLoading}}" hint-placeholder-val="{{ false }}">
+      <div aria-busy="true" aria-label="Loading promotions" style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{skeletons}}" as="k" hint-placeholder-count="4">
+          <div style="background: #111D33; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; gap: 14px">
+              <div style="width: 64px; height: 64px; border-radius: 14px; background: #18263F"></div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 8px; padding-top: 4px">
+                <div style="width: 40%; height: 10px; border-radius: 99px; background: #18263F"></div>
+                <div style="width: 85%; height: 14px; border-radius: 99px; background: #18263F"></div>
+                <div style="width: 65%; height: 10px; border-radius: 99px; background: #18263F"></div>
+              </div>
+            </div>
+            <div style="height: 8px; border-radius: 99px; background: #18263F"></div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{showEmpty}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 72px 16px 0">
+        <div style="width: 64px; height: 64px; border-radius: 22px; background: #111D33; display: flex; align-items: center; justify-content: center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9CC3F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a2 2 0 0 0 2-2h12a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H6a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path></svg>
+        </div>
+        <h2 style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 20px; font-weight: 800">No promotions running for you</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: rgba(243,246,251,.72); max-width: 290px">New promotions appear here as soon as you’re eligible. Your offers are still available in the meantime.</p>
+        <a href="#" style="margin-top: 8px; display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 99px; background: #F3F6FB; color: #0A1324; font-size: 14px; font-weight: 700; text-decoration: none">Browse offers</a>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{showError}}" hint-placeholder-val="{{ false }}">
+      <div role="alert" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 72px 16px 0">
+        <div style="width: 64px; height: 64px; border-radius: 22px; background: #111D33; display: flex; align-items: center; justify-content: center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F5B97F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 9.5-2.6M8.5 16a5 5 0 0 1 4-1.4M12 20h.01M18 13v4M18 20h.01"></path></svg>
+        </div>
+        <h2 style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 20px; font-weight: 800">Promotions didn’t load</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: rgba(243,246,251,.72); max-width: 290px">The app couldn’t reach Club Passport. Check your connection, then try again.</p>
+        <button onClick="{{retry}}" style="margin-top: 8px; height: 44px; padding: 0 22px; border-radius: 99px; border: 0; background: #F3F6FB; color: #0A1324; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Try again</button>
+      </div>
+    </sc-if>
+  </div>
+
+  <nav aria-label="Main" style="display: flex; justify-content: space-around; padding: 10px 8px 22px; background: #0D1628; border-top: 1px solid rgba(255,255,255,.09)">
+    <button style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 64px; min-height: 44px; border: 0; background: none; color: rgba(243,246,251,.65); font: inherit; font-size: 11px; font-weight: 600; cursor: pointer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>Home</button>
+    <button style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 64px; min-height: 44px; border: 0; background: none; color: rgba(243,246,251,.65); font: inherit; font-size: 11px; font-weight: 600; cursor: pointer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="8" cy="8" r="1.5"></circle></svg>Offers</button>
+    <button aria-current="page" aria-label="{{navLabel}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 64px; min-height: 44px; border: 0; background: none; color: #D9B970; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; position: relative">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a2 2 0 0 0 2-2h12a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H6a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path></svg>Promotions
+      <sc-if value="{{showBadge}}" hint-placeholder-val="{{ true }}">
+        <span aria-hidden="true" style="position: absolute; top: -4px; left: 38px; min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box; border-radius: 99px; background: #D9B970; color: #0A1324; border: 2px solid #0D1628; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{badge}}</span>
+      </sc-if>
+    </button>
+    <button style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 64px; min-height: 44px; border: 0; background: none; color: rgba(243,246,251,.65); font: inherit; font-size: 11px; font-weight: 600; cursor: pointer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 10h18M7 15h4"></path></svg>Passport</button>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"scenario":{"editor":"enum","options":["default","loading","empty","error","stale"],"default":"default"},"tab":{"editor":"enum","options":["all","ready","progress"],"default":"all"},"readyEmpty":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const NOW = new Date('2026-11-06T09:00:00');
+    const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const DAY = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const readyEmpty = this.props.readyEmpty ?? false;
+    const scenario = s.scenario ?? (this.props.scenario ?? 'default');
+    const tab = s.tab ?? (this.props.tab ?? 'all');
+
+    // Mirrors the proposed v2.1 response (see the API requirements doc).
+    const data = [
+      { id: 608, name: 'New Member Promotion', short: 'It pays to play with Club Passport.', end: '2026-11-11T22:00:00', img: true, art: 0,
+        kind: 'ready', prizes: readyEmpty ? 0 : 13, prizeValue: readyEmpty ? 0 : 195, prizeExp: 'Nov 11' },
+      { id: 615, name: 'New Member Promotion', short: 'Earn up to $100 in Rewards Play today by earning 1, 25, 50, and 250 points.', end: '2026-11-06T23:59:59', todayOnly: true, img: false,
+        kind: 'goals', goals: [true, false, false, false], next: '7 points to your next $15' },
+      { id: 614, name: 'Early Bird & Night Owl', short: 'Earn points every Wednesday for food rewards, Bonus Play, and drawing entries.', end: '2026-11-15T22:00:00', img: false,
+        kind: 'upcoming', window: '2026-11-11T00:00:00', windowText: 'All day', goalsCount: 2 },
+      { id: 631, name: 'Month-End Promotion - 30th Special', short: 'Play on the 30th to win 500 points.', end: '2026-11-30T23:00:00', img: false,
+        kind: 'upcoming', window: '2026-11-30T09:00:00', windowText: '9 AM to 10 PM', goalsCount: 1 },
+      { id: 627, name: '7-Day Active Gaming Challenge', short: 'Play 7 days in a row and earn 500 bonus points.', end: '2026-11-30T23:59:00', img: true, art: 1,
+        kind: 'streak', done: 2, target: 7, todayPending: true }
+    ];
+    const hrefs = { 608: 'Detail.dc.html', 627: 'DetailProgress.dc.html', 631: 'DetailWindow.dc.html', 614: 'DetailWindow.dc.html', 615: 'DetailGoals.dc.html' };
+    const arts = [{ bg: '#135A67', fg: '#3DB4C6' }, { bg: '#75104F', fg: '#E0369B' }];
+    const chip = 'display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 99px; font-size: 11px; font-weight: 700; ';
+
+    const all = data.map((d) => {
+      const endD = new Date(d.end);
+      const days = Math.ceil((endD - NOW) / 86400000);
+      let endLabel, endStyle;
+      if (d.todayOnly) { endLabel = 'Today only'; endStyle = chip + 'background: rgba(240,163,94,.18); color: #F5B97F'; }
+      else if (days <= 7) { endLabel = 'Ends in ' + days + ' days'; endStyle = chip + 'background: rgba(240,163,94,.16); color: #F5B97F'; }
+      else { endLabel = 'Ends ' + MON[endD.getMonth()] + ' ' + endD.getDate(); endStyle = 'font-size: 12px; font-weight: 600; color: rgba(243,246,251,.65)'; }
+      const isReady = d.kind === 'ready' && d.prizes > 0;
+      const c = {
+        href: hrefs[d.id], name: d.name, short: d.short,
+        hasImg: d.img, noImg: !d.img, iconColor: d.img ? arts[d.art].fg : '#D9B970',
+        thumbStyle: 'width: 64px; height: 64px; flex: none; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: ' + (d.img ? arts[d.art].bg : '#18263F'),
+        endLabel, endStyle,
+        cardStyle: 'display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 20px; text-decoration: none; color: inherit; background: #111D33; border: 1px solid ' + (isReady ? 'rgba(217,185,112,.45)' : 'rgba(255,255,255,.06)'),
+        isReady, isGoals: d.kind === 'goals', isStreak: d.kind === 'streak', isUpcoming: d.kind === 'upcoming',
+        isSingle: d.kind === 'ready' && !isReady,
+        readyTitle: '$' + d.prizeValue + ' ready',
+        readySub: d.prizes + ' rewards to claim by ' + d.prizeExp,
+        segs: [], dots: [], barStyle: 'height: 100%; width: 100%; border-radius: 99px; background: #D9B970', progressLabel: 'All rewards claimed', toGo: '',
+        windowLabel: '', windowSub: ''
+      };
+      if (c.isGoals) {
+        const done = d.goals.filter(Boolean).length;
+        c.segs = d.goals.map((g) => ({ style: 'flex: 1; height: 8px; border-radius: 99px; background: ' + (g ? '#D9B970' : 'rgba(255,255,255,.1)') }));
+        c.progressLabel = done + ' of ' + d.goals.length + ' goals complete';
+        c.toGo = d.next;
+      }
+      if (c.isStreak) {
+        c.dots = [];
+        for (let i = 0; i < d.target; i++) {
+          const isDone = i < d.done;
+          const isToday = i === d.done && d.todayPending;
+          let st = 'flex: 1; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; box-sizing: border-box; ';
+          if (isDone) st += 'background: #9CC3F5; color: #0A1324';
+          else if (isToday) st += 'background: transparent; border: 2px dashed #9CC3F5; color: #9CC3F5';
+          else st += 'background: rgba(255,255,255,.08); color: rgba(243,246,251,.55)';
+          c.dots.push({ style: st, label: isToday ? 'Today' : String(i + 1) });
+        }
+        c.progressLabel = d.done + ' of ' + d.target + ' days';
+        c.toGo = 'Play today to keep it going';
+      }
+      if (c.isUpcoming) {
+        const w = new Date(d.window);
+        c.windowLabel = 'Opens ' + DAY[w.getDay()] + ', ' + MON[w.getMonth()] + ' ' + w.getDate();
+        c.windowSub = d.windowText + (d.goalsCount > 1 ? ', ' + d.goalsCount + ' goals' : '');
+      }
+      return c;
+    });
+
+    const ready = all.filter((c) => c.isReady);
+    const prog = all.filter((c) => !c.isReady);
+    const counts = { all: all.length, ready: ready.length, progress: prog.length };
+    const list = tab === 'ready' ? ready : tab === 'progress' ? prog : all;
+
+    const loaded = scenario === 'default' || scenario === 'stale';
+    const tabs = [['all', 'All'], ['ready', 'Ready'], ['progress', 'In progress']].map(([id, label]) => {
+      const sel = id === tab;
+      return {
+        label, sel, count: loaded ? counts[id] : '',
+        pick: () => this.setState({ tab: id }),
+        style: 'display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 99px; border: 0; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; ' + (sel ? 'background: #F3F6FB; color: #0A1324' : 'background: rgba(255,255,255,.07); color: rgba(243,246,251,.78)'),
+        countStyle: loaded ? ('display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 99px; font-size: 12px; ' + (sel ? 'background: #0A1324; color: #F3F6FB' : 'background: rgba(255,255,255,.1); color: #F3F6FB')) : 'display: none'
+      };
+    });
+
+    const totalPrizes = data.reduce((n, d) => n + (d.prizes || 0), 0);
+    const totalValue = data.reduce((n, d) => n + (d.prizeValue || 0), 0);
+    const subtitle = scenario === 'loading' ? 'Checking what’s running for you'
+      : scenario === 'empty' ? 'Nothing running right now'
+      : scenario === 'error' ? 'Couldn’t update'
+      : all.length + ' running for you' + (totalValue ? ', $' + totalValue + ' to claim' : '');
+
+    return {
+      tabs, subtitle,
+      showUpdated: scenario === 'default',
+      updatedLabel: 'Updated 2 min ago',
+      showStale: scenario === 'stale',
+      cards: loaded ? list : [],
+      showList: loaded && list.length > 0,
+      showTabEmpty: loaded && list.length === 0,
+      showLoading: scenario === 'loading',
+      showEmpty: scenario === 'empty',
+      showError: scenario === 'error',
+      skeletons: [1, 2, 3, 4],
+      showBadge: loaded && totalPrizes > 0,
+      badge: String(totalPrizes),
+      navLabel: totalPrizes > 0 ? 'Promotions, ' + totalPrizes + ' rewards to claim' : 'Promotions',
+      goProgress: () => this.setState({ tab: 'progress' }),
+      retry: () => this.setState({ scenario: 'default' })
+    };
+  }
+}
+</script>
+</body>
+</html>

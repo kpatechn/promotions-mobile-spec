@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Components</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1200px; height: 1320px; box-sizing: border-box; padding: 56px; background: #0A1324; color: #F3F6FB; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 32px">
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <h1 style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 36px; font-weight: 800">Components</h1>
+    <p style="margin: 0; font-size: 15px; color: rgba(243,246,251,.72); max-width: 760px">Every reusable piece on the promotions screens, with the API fields that drive it. Field names follow the proposed v2.1 response.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Filter tabs</h2>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <span style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 99px; background: #F3F6FB; color: #0A1324; font-size: 14px; font-weight: 700">All<span style="display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 99px; background: #0A1324; color: #F3F6FB; font-size: 12px">5</span></span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 99px; background: rgba(255,255,255,.07); color: rgba(243,246,251,.78); font-size: 14px; font-weight: 700">Ready<span style="display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 99px; background: rgba(255,255,255,.1); color: #F3F6FB; font-size: 12px">1</span></span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Height 40, pill. Ready = <code style="font-family: 'JetBrains Mono', monospace">availablePrizeCount &gt; 0</code>. Counts hide while loading.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Buttons</h2>
+      <span style="display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 99px; background: #D9B970; color: #0A1324; font-size: 15px; font-weight: 700">Claim reward</span>
+      <div style="display: flex; gap: 8px">
+        <span style="flex: 1; display: flex; align-items: center; justify-content: center; height: 44px; border-radius: 99px; background: #F3F6FB; color: #0A1324; font-size: 14px; font-weight: 700">Try again</span>
+        <span style="display: flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border-radius: 99px; background: #D9B970; color: #0A1324; font-size: 14px; font-weight: 700">Claim</span>
+        <span style="display: flex; align-items: center; justify-content: center; height: 44px; padding: 0 14px; border-radius: 99px; color: #F3F6FB; font-size: 14px; font-weight: 700">Not now</span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Gold = reward actions only. Light = recovery (Try again, Got it). Disabled while a claim is in flight.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Time chips</h2>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center">
+        <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 99px; background: rgba(240,163,94,.18); color: #F5B97F; font-size: 11px; font-weight: 700">Today only</span>
+        <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 99px; background: rgba(240,163,94,.16); color: #F5B97F; font-size: 11px; font-weight: 700">Ends in 5 days</span>
+        <span style="font-size: 12px; font-weight: 600; color: rgba(243,246,251,.65)">Ends Nov 30</span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Use <code style="font-family: 'JetBrains Mono', monospace">eligibilityWindow.end</code> when present, else <code style="font-family: 'JetBrains Mono', monospace">proEndDate</code>. Chip when 7 days or fewer, measured from <code style="font-family: 'JetBrains Mono', monospace">serverTime</code>.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Progress: single bar</h2>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="height: 8px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden"><div style="height: 100%; width: 40%; border-radius: 99px; background: #9CC3F5"></div></div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px"><span style="font-weight: 600">8 of 20 points</span><span style="color: rgba(243,246,251,.7)">12 points to go</span></div>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">One qualifier, no streak, no future window. Width = <code style="font-family: 'JetBrains Mono', monospace">currentValue / targetValue</code>. Gold when complete.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Progress: goal segments</h2>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; gap: 4px">
+          <div style="flex: 1; height: 8px; border-radius: 99px; background: #D9B970"></div>
+          <div style="flex: 1; height: 8px; border-radius: 99px; background: rgba(255,255,255,.1)"></div>
+          <div style="flex: 1; height: 8px; border-radius: 99px; background: rgba(255,255,255,.1)"></div>
+          <div style="flex: 1; height: 8px; border-radius: 99px; background: rgba(255,255,255,.1)"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px"><span style="font-weight: 600">1 of 4 goals complete</span><span style="color: rgba(243,246,251,.7)">7 points to your next $15</span></div>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Listing card when <code style="font-family: 'JetBrains Mono', monospace">qualifiers.length &gt; 1</code>. One segment per qualifier, gold when <code style="font-family: 'JetBrains Mono', monospace">isQualified</code>.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Progress: streak tiles</h2>
+      <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
+        <span style="height: 36px; border-radius: 10px; background: #9CC3F5; color: #0A1324; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">4</span>
+        <span style="height: 36px; border-radius: 10px; background: #9CC3F5; color: #0A1324; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">5</span>
+        <span style="height: 36px; border-radius: 10px; border: 2px dashed #9CC3F5; box-sizing: border-box; color: #9CC3F5; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">6</span>
+        <span style="height: 36px; border-radius: 10px; background: rgba(255,255,255,.07); color: rgba(243,246,251,.6); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">7</span>
+        <span style="height: 36px; border-radius: 10px; background: rgba(255,255,255,.07); color: rgba(243,246,251,.6); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">8</span>
+        <span style="height: 36px; border-radius: 10px; background: rgba(255,255,255,.07); color: rgba(243,246,251,.6); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">9</span>
+        <span style="height: 36px; border-radius: 10px; background: rgba(255,255,255,.07); color: rgba(243,246,251,.6); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">10</span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">When <code style="font-family: 'JetBrains Mono', monospace">progress.streak</code> exists. Filled = <code style="font-family: 'JetBrains Mono', monospace">daysCompleted</code>; dashed = today with <code style="font-family: 'JetBrains Mono', monospace">todayStatus: pending</code>. Warn until <code style="font-family: 'JetBrains Mono', monospace">resetsAt</code>.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Progress: milestone track</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px">
+        <div style="display: flex; flex-direction: column; gap: 6px"><div style="height: 10px; border-radius: 99px; background: #D9B970"></div><span style="font-size: 13px; font-weight: 800; color: #D9B970; text-align: right">$15</span><span style="font-size: 11px; color: rgba(243,246,251,.65); text-align: right">1 pt</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><div style="height: 10px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden"><div style="height: 100%; width: 71%; background: #9CC3F5; border-radius: 99px"></div></div><span style="font-size: 13px; font-weight: 800; text-align: right">$15</span><span style="font-size: 11px; color: rgba(243,246,251,.65); text-align: right">25 pts</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><div style="height: 10px; border-radius: 99px; background: rgba(255,255,255,.1)"></div><span style="font-size: 13px; font-weight: 800; text-align: right">$20</span><span style="font-size: 11px; color: rgba(243,246,251,.65); text-align: right">50 pts</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><div style="height: 10px; border-radius: 99px; background: rgba(255,255,255,.1)"></div><span style="font-size: 13px; font-weight: 800; text-align: right">$50</span><span style="font-size: 11px; color: rgba(243,246,251,.65); text-align: right">250 pts</span></div>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Detail screen when qualifiers share a <code style="font-family: 'JetBrains Mono', monospace">metricKey</code>. Segments are equal width; each fills from the previous threshold to its own.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Upcoming window</h2>
+      <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(156,195,245,.08)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CC3F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+        <div style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700">Opens Mon, Nov 30</span><span style="font-size: 12px; color: rgba(243,246,251,.7)">9 AM to 10 PM</span></div>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Replaces the progress bar when <code style="font-family: 'JetBrains Mono', monospace">nextWindowStart</code> is after <code style="font-family: 'JetBrains Mono', monospace">serverTime</code>. Detail adds a Remind me switch.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Reward row</h2>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 12px; border-radius: 16px; background: #111D33">
+        <span style="width: 36px; height: 36px; flex: none; border-radius: 12px; background: rgba(217,185,112,.16)"></span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 700">$15 Reward Play</span><span style="font-size: 11px; color: rgba(243,246,251,.7)">Claim by Nov 11 at 11:59 PM</span></div>
+        <span style="display: flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 99px; background: #D9B970; color: #0A1324; font-size: 13px; font-weight: 700">Claim</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 12px; border-radius: 16px; background: rgba(17,29,51,.5)">
+        <span style="width: 36px; height: 36px; flex: none; border-radius: 12px; background: rgba(255,255,255,.06)"></span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 700">$15 Reward Play</span><span style="font-size: 11px; color: rgba(243,246,251,.7)">Expired Nov 11 at 11:59 PM</span></div>
+        <span style="font-size: 12px; font-weight: 700; color: rgba(243,246,251,.65); padding-right: 6px">Expired</span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">One row per prize. Button only when <code style="font-family: 'JetBrains Mono', monospace">isClaimable</code>. Claimed rows move to a collapsed Claimed group.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Toast</h2>
+      <div style="background: #F3F6FB; color: #0A1324; border-radius: 16px; padding: 10px 10px 10px 14px; display: flex; gap: 10px; align-items: center">
+        <span style="width: 28px; height: 28px; flex: none; border-radius: 99px; background: #0A1324"></span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700">Claimed $15 Reward Play</span><span style="font-size: 11px; color: rgba(10,19,36,.75)">It’s on your Club Passport card now.</span></div>
+        <span style="font-size: 12px; font-weight: 800; text-decoration: underline; padding: 0 4px">View</span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Shows for 3.2 s, announced as a status. View opens the destination from <code style="font-family: 'JetBrains Mono', monospace">claimedTo</code>.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Cached-data banner</h2>
+      <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 14px; background: rgba(240,163,94,.12); border: 1px solid rgba(240,163,94,.3)">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700">Showing info from 10:42 AM</span><span style="font-size: 11px; color: rgba(243,246,251,.72)">Progress may be out of date.</span></div>
+        <span style="font-size: 12px; font-weight: 700; color: #F5B97F">Refresh</span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Refresh failed but a cached response exists. Time comes from the cached <code style="font-family: 'JetBrains Mono', monospace">lastUpdated</code>.</p>
+    </section>
+
+    <section style="background: #0D1628; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 700">Navigation badge</h2>
+      <div style="display: flex; justify-content: center; padding: 6px 0">
+        <span style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; color: #D9B970; font-size: 11px; font-weight: 700">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a2 2 0 0 0 2-2h12a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H6a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path></svg>Promotions
+          <span style="position: absolute; top: -6px; left: 40px; min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box; border-radius: 99px; background: #D9B970; color: #0A1324; border: 2px solid #0D1628; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center">13</span>
+        </span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 1.5; color: rgba(243,246,251,.7)">Value = <code style="font-family: 'JetBrains Mono', monospace">totalAvailablePrizes</code>; hidden at 0, shows 99+ above 99. Include the count in the tab’s accessibility label.</p>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1200,"height":1320}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design tokens</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1200px; height: 1040px; box-sizing: border-box; padding: 56px; background: #0A1324; color: #F3F6FB; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 40px">
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <h1 style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 36px; font-weight: 800">Design tokens</h1>
+    <p style="margin: 0; font-size: 15px; color: rgba(243,246,251,.72); max-width: 720px">From the Club Passport v4 theme. Values are in points (iOS) and dp (Android) at 1×. Colors with an alpha are listed as rgba over the page background.</p>
+  </div>
+
+  <section style="display: flex; flex-direction: column; gap: 16px">
+    <h2 style="margin: 0; font-size: 18px; font-weight: 700">Color</h2>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px">
+      <sc-for list="{{colors}}" as="c" hint-placeholder-count="12">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="{{c.sw}}"></div>
+          <span style="font-size: 14px; font-weight: 700">{{c.name}}</span>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: rgba(243,246,251,.75)">{{c.hex}}</span>
+          <span style="font-size: 12px; line-height: 1.4; color: rgba(243,246,251,.65)">{{c.use}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px">
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 18px; font-weight: 700">Type</h2>
+      <sc-for list="{{type}}" as="t" hint-placeholder-count="9">
+        <div style="display: flex; align-items: baseline; gap: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.08)">
+          <span style="{{t.style}}">{{t.sample}}</span>
+          <span style="margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: rgba(243,246,251,.7); white-space: nowrap">{{t.spec}}</span>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 700">Radius</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 14px">
+          <sc-for list="{{radii}}" as="r" hint-placeholder-count="6">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+              <div style="{{r.style}}"></div>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px">{{r.v}}</span>
+              <span style="font-size: 11px; color: rgba(243,246,251,.65)">{{r.use}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 700">Spacing and sizes</h2>
+        <sc-for list="{{sizes}}" as="z" hint-placeholder-count="8">
+          <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.08)">
+            <span style="color: rgba(243,246,251,.8)">{{z.k}}</span>
+            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px">{{z.v}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1200,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const sw = (bg, border) => 'height: 64px; border-radius: 14px; background: ' + bg + (border ? '; border: 1px solid rgba(255,255,255,.18)' : '');
+    const colors = [
+      { name: 'bg.page', hex: '#0A1324', use: 'Screen background', sw: sw('#0A1324', true) },
+      { name: 'bg.surface', hex: '#111D33', use: 'Cards, sheets, rows', sw: sw('#111D33', true) },
+      { name: 'bg.raised', hex: '#18263F', use: 'Thumbnails, skeletons', sw: sw('#18263F') },
+      { name: 'bg.nav', hex: '#0D1628', use: 'Bottom navigation', sw: sw('#0D1628', true) },
+      { name: 'text.primary', hex: '#F3F6FB', use: 'Titles, body, light buttons', sw: sw('#F3F6FB') },
+      { name: 'text.secondary', hex: 'rgba(243,246,251,.72)', use: 'Descriptions, meta', sw: sw('rgba(243,246,251,.72)') },
+      { name: 'accent.gold', hex: '#D9B970', use: 'Rewards, claim, earned', sw: sw('#D9B970') },
+      { name: 'accent.sky', hex: '#9CC3F5', use: 'Progress, links, claimed', sw: sw('#9CC3F5') },
+      { name: 'status.soon', hex: '#F5B97F', use: 'Ending soon, warnings', sw: sw('#F5B97F') },
+      { name: 'status.soon.bg', hex: 'rgba(240,163,94,.16)', use: 'Behind soon chips', sw: sw('rgba(240,163,94,.16)', true) },
+      { name: 'track', hex: 'rgba(255,255,255,.10)', use: 'Empty progress track', sw: sw('rgba(255,255,255,.10)', true) },
+      { name: 'line', hex: 'rgba(255,255,255,.08)', use: 'Dividers', sw: sw('rgba(255,255,255,.08)', true) }
+    ];
+    const M = 'font-family: Montserrat, ui-sans-serif, sans-serif; ';
+    const J = 'font-family: \'Plus Jakarta Sans\', ui-sans-serif, sans-serif; ';
+    const type = [
+      { sample: 'Promotions', spec: 'Montserrat 28 / 800 / -1%', style: M + 'font-size: 28px; font-weight: 800; letter-spacing: -0.01em' },
+      { sample: 'Detail title', spec: 'Montserrat 26 / 800 / 1.15', style: M + 'font-size: 26px; font-weight: 800' },
+      { sample: '$195 ready', spec: 'Montserrat 20–32 / 800 (figures)', style: M + 'font-size: 24px; font-weight: 800; color: #D9B970' },
+      { sample: 'Sheet and empty title', spec: 'Montserrat 20 / 800', style: M + 'font-size: 20px; font-weight: 800' },
+      { sample: 'Section heading', spec: 'Jakarta 17 / 700', style: J + 'font-size: 17px; font-weight: 700' },
+      { sample: 'Card title', spec: 'Jakarta 16 / 700 / 1.3', style: J + 'font-size: 16px; font-weight: 700' },
+      { sample: 'Body and descriptions', spec: 'Jakarta 14–15 / 400 / 1.5', style: J + 'font-size: 15px' },
+      { sample: 'Buttons and tabs', spec: 'Jakarta 14–15 / 700', style: J + 'font-size: 14px; font-weight: 700' },
+      { sample: 'Meta and captions', spec: 'Jakarta 12–13 / 600', style: J + 'font-size: 12px; font-weight: 600; color: rgba(243,246,251,.72)' },
+      { sample: 'Chips and nav labels', spec: 'Jakarta 11 / 700', style: J + 'font-size: 11px; font-weight: 700' }
+    ];
+    const box = (r) => 'width: 52px; height: 52px; background: #111D33; border: 1px solid rgba(156,195,245,.45); border-radius: ' + r;
+    const radii = [
+      { v: '99', use: 'Pills', style: box('99px') },
+      { v: '24', use: 'Sheet top', style: box('24px 24px 0 0') },
+      { v: '20', use: 'Card', style: box('20px') },
+      { v: '16', use: 'Row', style: box('16px') },
+      { v: '14', use: 'Thumb', style: box('14px') },
+      { v: '10', use: 'Day tile', style: box('10px') }
+    ];
+    const sizes = [
+      { k: 'Screen padding', v: '20' },
+      { k: 'Card padding / gap between cards', v: '16 / 12' },
+      { k: 'Section gap (detail)', v: '28' },
+      { k: 'Minimum touch target', v: '44 × 44' },
+      { k: 'Primary button (sheet)', v: 'height 52' },
+      { k: 'Claim button / tab chip', v: 'height 44 / 40' },
+      { k: 'Thumbnail / detail hero', v: '64 × 64 / full × 200' },
+      { k: 'Progress bar (card / detail)', v: 'height 8 / 10' }
+    ];
+    return { colors, type, radii, sizes };
+  }
+}
+</script>
+</body>
+</html>

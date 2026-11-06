@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Promotion details</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; background: #0A1324; color: #F3F6FB; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif; position: relative; overflow: hidden; box-sizing: border-box">
+
+  <div style="position: absolute; inset: 0; overflow-y: auto">
+    <div style="{{heroStyle}}">
+      <sc-if value="{{p.img}}" hint-placeholder-val="{{ true }}">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="{{heroFg}}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"></rect><circle cx="9" cy="10" r="2"></circle><path d="M21 16l-5-5-9 9"></path></svg>
+      </sc-if>
+      <sc-if value="{{p.noImg}}" hint-placeholder-val="{{ false }}">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#D9B970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a2 2 0 0 0 2-2h12a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H6a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path><path d="M12 9.5l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 11.6l2-.3z"></path></svg>
+      </sc-if>
+      <a href="Main.dc.html" aria-label="Back to promotions" style="position: absolute; top: 16px; left: 16px; width: 44px; height: 44px; border-radius: 99px; background: rgba(10,19,36,.72); display: flex; align-items: center; justify-content: center; color: #F3F6FB">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+      </a>
+    </div>
+
+    <div style="padding: 20px 20px 40px; display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+          <span style="{{p.endStyle}}">{{p.endLabel}}</span>
+          <span style="font-size: 12px; color: rgba(243,246,251,.65)">{{p.runs}}</span>
+        </div>
+        <h1 style="margin: 0; font-family: Montserrat, ui-sans-serif, system-ui, sans-serif; font-size: 26px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em">{{p.name}}</h1>
+        <p style="margin: 0; font-size: 15px; line-height: 1.5; color: rgba(243,246,251,.78)">{{p.short}}</p>
+      </div>
+
+      <section style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 700">{{progressTitle}}</h2>
+          <span style="font-size: 12px; color: rgba(243,246,251,.65)">Updated 2 min ago</span>
+        </div>
+
+        <sc-if value="{{isStreak}}" hint-placeholder-val="{{ false }}">
+          <div style="background: #111D33; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: baseline; gap: 6px">
+              <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 32px; font-weight: 800">2</span>
+              <span style="font-size: 14px; color: rgba(243,246,251,.72)">of 7 days in a row</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
+              <sc-for list="{{streakDays}}" as="d" hint-placeholder-count="7">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+                  <span style="font-size: 11px; font-weight: 600; color: rgba(243,246,251,.65)">{{d.dow}}</span>
+                  <span style="{{d.style}}">{{d.num}}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 12px; background: rgba(156,195,245,.1)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CC3F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2M9 2h6"></path></svg>
+              <span style="font-size: 13px; line-height: 1.45; color: #F3F6FB">Play today before 11:59 PM to keep your streak. Missing a day starts it over.</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.08)">
+              <span style="font-size: 13px; color: rgba(243,246,251,.72)">Reward at 7 days</span>
+              <span style="font-size: 14px; font-weight: 700; color: #D9B970">500 bonus points</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{isMilestone}}" hint-placeholder-val="{{ true }}">
+          <div style="background: #111D33; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between">
+              <div style="display: flex; align-items: baseline; gap: 6px">
+                <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 32px; font-weight: 800">18</span>
+                <span style="font-size: 14px; color: rgba(243,246,251,.72)">points today</span>
+              </div>
+              <span style="font-size: 13px; font-weight: 700; color: #D9B970">$15 of $100 earned</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px">
+              <sc-for list="{{milestones}}" as="m" hint-placeholder-count="4">
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <div style="height: 10px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden">
+                    <div style="{{m.fillStyle}}"></div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 1px; align-items: flex-end; text-align: right">
+                    <span style="{{m.rewardStyle}}">{{m.reward}}</span>
+                    <span style="font-size: 11px; color: rgba(243,246,251,.65)">{{m.at}}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{isUpcoming}}" hint-placeholder-val="{{ false }}">
+          <div style="background: #111D33; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; gap: 14px; align-items: center">
+              <div style="width: 56px; height: 60px; flex: none; border-radius: 14px; background: #18263F; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0">
+                <span style="font-size: 11px; font-weight: 700; color: #9CC3F5">{{win.mon}}</span>
+                <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 24px; font-weight: 800; line-height: 1">{{win.day}}</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 16px; font-weight: 700">{{win.label}}</span>
+                <span style="font-size: 13px; color: rgba(243,246,251,.72)">{{win.time}}</span>
+                <span style="font-size: 12px; font-weight: 700; color: #9CC3F5">{{win.countdown}}</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08)">
+              <div style="display: flex; flex-direction: column; gap: 2px">
+                <span id="remind-label" style="font-size: 14px; font-weight: 700">Remind me</span>
+                <span style="font-size: 12px; color: rgba(243,246,251,.68)">{{remindSub}}</span>
+              </div>
+              <button role="switch" aria-checked="{{remind}}" aria-labelledby="remind-label" onClick="{{toggleRemind}}" style="{{switchStyle}}">
+                <span style="{{knobStyle}}"></span>
+              </button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-for list="{{goals}}" as="g" hint-placeholder-count="2">
+          <div style="background: #111D33; border-radius: 16px; padding: 14px 14px 14px 16px; display: flex; gap: 12px; align-items: center">
+            <sc-if value="{{g.done}}" hint-placeholder-val="{{ false }}">
+              <span style="width: 28px; height: 28px; flex: none; border-radius: 99px; background: #D9B970; color: #0A1324; display: flex; align-items: center; justify-content: center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+              </span>
+            </sc-if>
+            <sc-if value="{{g.notDone}}" hint-placeholder-val="{{ true }}">
+              <span style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 99px; border: 2px solid rgba(156,195,245,.5)"></span>
+            </sc-if>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 15px; font-weight: 700; line-height: 1.35">{{g.name}}</span>
+              <span style="{{g.statusStyle}}">{{g.statusLabel}}</span>
+            </div>
+            <span style="{{g.rewardStyle}}">{{g.reward}}</span>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{hasHow}}" hint-placeholder-val="{{ true }}">
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: rgba(243,246,251,.72)">{{how}}</p>
+        </sc-if>
+      </section>
+
+      <sc-if value="{{hasRewards}}" hint-placeholder-val="{{ false }}">
+        <section style="display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 700">Rewards</h2>
+          <div style="border-radius: 18px; padding: 16px; background: rgba(217,185,112,.1); border: 1px solid rgba(217,185,112,.35); display: flex; align-items: center; justify-content: space-between; gap: 12px">
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 26px; font-weight: 800; color: #D9B970">{{readyValue}}</span>
+              <span style="font-size: 13px; color: rgba(243,246,251,.78)">{{readySub}}</span>
+            </div>
+            <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 99px; background: rgba(240,163,94,.18); color: #F5B97F; font-size: 12px; font-weight: 700; white-space: nowrap">Expires in 5 days</span>
+          </div>
+          <sc-for list="{{rewards}}" as="r" hint-placeholder-count="4">
+            <div style="{{r.rowStyle}}">
+              <span style="{{r.iconStyle}}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"></rect><path d="M12 8v13M3 12h18M12 8c-1.5-3-5-3.5-5-1s3 1 5 1c2 0 5 1.5 5-1s-3.5-2-5 1z"></path></svg>
+              </span>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 15px; font-weight: 700">$15 Reward Play</span>
+                <span style="font-size: 12px; color: rgba(243,246,251,.7)">{{r.sub}}</span>
+              </div>
+              <sc-if value="{{r.claimable}}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{r.claim}}" aria-label="{{r.aria}}" style="height: 44px; padding: 0 18px; border-radius: 99px; border: 0; background: #D9B970; color: #0A1324; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; flex: none">Claim</button>
+              </sc-if>
+              <sc-if value="{{r.expired}}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 13px; font-weight: 700; color: rgba(243,246,251,.65); flex: none; padding-right: 4px">Expired</span>
+              </sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{hasClaimed}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <button onClick="{{toggleClaimed}}" aria-expanded="{{claimedOpen}}" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 16px; border-radius: 16px; border: 0; background: rgba(17,29,51,.6); color: #F3F6FB; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">
+                <span style="display: inline-flex; align-items: center; gap: 8px">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9CC3F5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>{{claimedLabel}}</span>
+                <span style="font-size: 13px; color: #9CC3F5">{{claimedToggle}}</span>
+              </button>
+              <sc-if value="{{claimedOpen}}" hint-placeholder-val="{{ false }}">
+                <sc-for list="{{claimedRows}}" as="r" hint-placeholder-count="1">
+                  <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: rgba(17,29,51,.55)">
+                    <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: rgba(156,195,245,.12); color: #9CC3F5; display: flex; align-items: center; justify-content: center">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+                    </span>
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+                      <span style="font-size: 14px; font-weight: 700">$15 Reward Play</span>
+                      <span style="font-size: 12px; color: rgba(243,246,251,.7)">{{r.sub}}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </sc-if>
+            </div>
+          </sc-if>
+        </section>
+      </sc-if>
+
+      <section style="display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 17px; font-weight: 700">About this promotion</h2>
+        <p style="{{descStyle}}">{{p.desc}}</p>
+        <sc-if value="{{showMore}}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{toggleDesc}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: 0; background: none; color: #9CC3F5; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{moreLabel}}</button>
+        </sc-if>
+        <sc-if value="{{p.hasTerms}}" hint-placeholder-val="{{ true }}">
+          <a href="{{p.terms}}" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-radius: 16px; background: #111D33; color: #F3F6FB; font-size: 14px; font-weight: 600; text-decoration: none">Official rules
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg>
+          </a>
+        </sc-if>
+      </section>
+    </div>
+  </div>
+
+  <sc-if value="{{sheetOpen}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; background: rgba(3,7,15,.66)">
+      <button onClick="{{closeSheet}}" aria-label="Close" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; cursor: default"></button>
+      <div role="dialog" aria-modal="true" aria-labelledby="sheet-title" style="position: absolute; left: 0; right: 0; bottom: 0; background: #111D33; border-radius: 24px 24px 0 0; padding: 12px 20px 32px; display: flex; flex-direction: column; gap: 16px">
+        <div style="width: 40px; height: 5px; border-radius: 99px; background: rgba(255,255,255,.18); align-self: center"></div>
+        <div style="display: flex; gap: 14px; align-items: center">
+          <span style="{{sheet.iconStyle}}">
+            <sc-if value="{{sheet.isConfirm}}" hint-placeholder-val="{{ true }}">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"></rect><path d="M12 8v13M3 12h18M12 8c-1.5-3-5-3.5-5-1s3 1 5 1c2 0 5 1.5 5-1s-3.5-2-5 1z"></path></svg>
+            </sc-if>
+            <sc-if value="{{sheet.isProblem}}" hint-placeholder-val="{{ false }}">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5h.01"></path></svg>
+            </sc-if>
+          </span>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <h2 id="sheet-title" style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 20px; font-weight: 800">{{sheet.title}}</h2>
+            <span style="font-size: 13px; color: rgba(243,246,251,.7)">New Member Welcome Reward</span>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(243,246,251,.8)">{{sheet.body}}</p>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <sc-if value="{{sheet.hasPrimary}}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{sheet.primary}}" disabled="{{claiming}}" style="{{sheet.primaryStyle}}">{{sheet.primaryLabel}}</button>
+          </sc-if>
+          <button onClick="{{closeSheet}}" style="{{sheet.secondaryStyle}}">{{sheet.secondaryLabel}}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{toastOpen}}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 24px; background: #F3F6FB; color: #0A1324; border-radius: 16px; padding: 12px 12px 12px 16px; display: flex; gap: 12px; align-items: center">
+      <span style="width: 32px; height: 32px; flex: none; border-radius: 99px; background: #0A1324; color: #D9B970; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+      </span>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 1px">
+        <span style="font-size: 14px; font-weight: 700">{{toastTitle}}</span>
+        <span style="font-size: 12px; color: rgba(10,19,36,.75)">{{toastSub}}</span>
+      </div>
+      <a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; color: #0A1324; font-size: 13px; font-weight: 800; text-decoration: underline">View</a>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"promoId":{"editor":"enum","options":["608","627","615","631","614"],"default":"608"},"view":{"editor":"enum","options":["default","confirm","claimed","error","expired","notEligible","alreadyClaimed"],"default":"default"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const NOW = new Date('2026-11-06T09:00:00');
+    const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const DAY = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const fmt = (iso) => { const d = new Date(iso); return MON[d.getMonth()] + ' ' + d.getDate(); };
+    const id = String(this.props.promoId ?? '608');
+    const view = this.props.view ?? 'default';
+
+    const P = {
+      '608': { kind: 'ready', name: 'New Member Promotion', short: 'It pays to play with Club Passport.', start: '2026-10-12', end: '2026-11-11T22:00:00', img: true, art: 0,
+        terms: 'https://dkr2rmsityotp.cloudfront.net/wp-content/uploads/2020/05/New-Member-Promotion-27-Rules-1.pdf',
+        desc: 'Sign up today to earn up to $100 rewards play on your first day of membership. You’ll receive $15 rewards play when you earn your first point, an additional $15 at 25 more points, $20 at 50 more points, and $50 at 250 more points.\n\nYour rewards play loads to your Club Passport card automatically. Insert your card into any participating electronic game to download it to the machine.\n\nRewards play offers and earn-and-get offers are only valid on the first day a new member receives their Club Passport card. See Players Club for details.',
+        goals: [{ name: 'Join Club Passport', done: true, status: 'Completed', reward: '13 × $15' }], how: '' },
+      '627': { kind: 'streak', name: '7-Day Active Gaming Challenge', short: 'Play 7 days in a row and earn 500 bonus points.', start: '2026-10-01', end: '2026-11-30T23:59:00', img: true, art: 1, terms: '',
+        desc: 'Complete 7 active days of play within the weekly cycle to win bonus rewards.', goals: [], how: 'Play any game with your card each day. Days count in Central Time.' },
+      '615': { kind: 'milestone', name: 'New Member Promotion', short: 'Earn up to $100 in Rewards Play today by earning 1, 25, 50, and 250 points.', start: '2026-10-21', end: '2026-11-06T23:59:59', todayOnly: true, img: false,
+        terms: 'https://www.winstar.com/promotion/new-member-promotion/',
+        desc: 'New Club Passport members at WinStar can earn up to $100 in Rewards Play on their first day of membership. Members receive $15 when they earn their first point, an additional $15 at 25 points, $20 at 50 points, and $50 at 250 points. Rewards Play loads to your Club Passport card automatically.',
+        goals: [
+          { name: 'Earn your first point', done: true, status: 'Earned, on your card', reward: '$15' },
+          { name: 'Earn 25 points', done: false, status: '7 points to go', reward: '$15' },
+          { name: 'Earn 50 points', done: false, status: '32 points to go', reward: '$20' },
+          { name: 'Earn 250 points', done: false, status: '232 points to go', reward: '$50' }],
+        how: 'Keep playing with your card today. Points reset at midnight.' },
+      '631': { kind: 'upcoming', name: 'Month-End Promotion - 30th Special', short: 'Play on the 30th to win 500 points.', start: '2026-10-30', end: '2026-11-30T23:00:00', img: false, terms: '',
+        window: '2026-11-30T09:00:00', windowTime: '9:00 AM to 10:00 PM',
+        desc: 'Exclusive monthly promotion on every 30th between 9:00 AM and 10:00 PM.',
+        goals: [{ name: 'Earn 20 points on the 30th', done: false, status: 'Starts Nov 30', reward: '500 pts' }],
+        how: 'Play with your card on Nov 30 between 9 AM and 10 PM.' },
+      '614': { kind: 'upcoming', name: 'Early Bird & Night Owl', short: 'Earn points every Wednesday for food rewards, Bonus Play, and drawing entries.', start: '2026-10-20', end: '2026-11-15T22:00:00', img: false,
+        terms: 'https://www.riverwind.com/promotion/early-bird-night-owl/', window: '2026-11-11T00:00:00', windowTime: 'All day',
+        desc: 'Earn points every Wednesday to qualify for food rewards, Bonus Play, and drawing entries. Early Bird is for members aged 50+, and Night Owl is for members aged 18–49.',
+        goals: [{ name: 'Earn 20 points on Wednesday', done: false, status: 'Starts Wed, Nov 11', reward: 'Food' }, { name: 'Earn 100 points on Wednesday', done: false, status: 'Starts Wed, Nov 11', reward: 'Bonus Play' }],
+        how: 'Play with your card on Wednesday.' }
+    };
+    const d = P[id] || P['608'];
+    const arts = [{ bg: '#135A67', fg: '#3DB4C6' }, { bg: '#75104F', fg: '#E0369B' }];
+    const chip = 'display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 99px; font-size: 12px; font-weight: 700; ';
+    const endD = new Date(d.end);
+    const days = Math.ceil((endD - NOW) / 86400000);
+    let endLabel, endStyle;
+    if (d.todayOnly) { endLabel = 'Today only, ends 11:59 PM'; endStyle = chip + 'background: rgba(240,163,94,.18); color: #F5B97F'; }
+    else if (days <= 7) { endLabel = 'Ends in ' + days + ' days'; endStyle = chip + 'background: rgba(240,163,94,.16); color: #F5B97F'; }
+    else { endLabel = 'Ends ' + fmt(d.end); endStyle = chip + 'background: rgba(255,255,255,.07); color: #F3F6FB'; }
+
+    const p = {
+      name: d.name, short: d.short, desc: d.desc, img: d.img, noImg: !d.img, terms: d.terms, hasTerms: !!d.terms,
+      endLabel, endStyle, runs: d.todayOnly ? 'Your first day of membership' : 'Runs ' + fmt(d.start) + ' to ' + fmt(d.end)
+    };
+
+    const goals = d.goals.map((g) => ({
+      name: g.name, done: g.done, notDone: !g.done, statusLabel: g.status, reward: g.reward,
+      statusStyle: 'font-size: 12px; font-weight: 700; color: ' + (g.done ? '#D9B970' : d.kind === 'upcoming' ? 'rgba(243,246,251,.68)' : '#9CC3F5'),
+      rewardStyle: 'flex: none; display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 99px; font-size: 13px; font-weight: 800; ' + (g.done ? 'background: rgba(217,185,112,.18); color: #D9B970' : 'background: rgba(255,255,255,.07); color: #F3F6FB')
+    }));
+
+    // Streak (627): Wed Nov 4 to Tue Nov 10, 2 done, today pending
+    const streakDays = [];
+    for (let i = 0; i < 7; i++) {
+      const dt = new Date(2026, 10, 4 + i);
+      let st = 'width: 100%; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; box-sizing: border-box; ';
+      if (i < 2) st += 'background: #9CC3F5; color: #0A1324';
+      else if (i === 2) st += 'border: 2px dashed #9CC3F5; color: #9CC3F5';
+      else st += 'background: rgba(255,255,255,.07); color: rgba(243,246,251,.6)';
+      streakDays.push({ dow: i === 2 ? 'Today' : DAY[dt.getDay()], num: String(dt.getDate()), style: st });
+    }
+
+    // Milestones (615): 18 points against 1, 25, 50, 250
+    const pts = 18, th = [1, 25, 50, 250], rw = ['$15', '$15', '$20', '$50'];
+    const milestones = th.map((t, i) => {
+      const lo = i === 0 ? 0 : th[i - 1];
+      const f = Math.max(0, Math.min(1, (pts - lo) / (t - lo)));
+      const done = pts >= t;
+      return {
+        fillStyle: 'height: 100%; border-radius: 99px; width: ' + Math.round(f * 100) + '%; background: ' + (done ? '#D9B970' : '#9CC3F5'),
+        reward: rw[i], at: t === 1 ? '1 pt' : t + ' pts',
+        rewardStyle: 'font-size: 14px; font-weight: 800; color: ' + (done ? '#D9B970' : '#F3F6FB')
+      };
+    });
+
+    // Window (631, 614)
+    let win = { mon: '', day: '', label: '', time: '', countdown: '' };
+    if (d.window) {
+      const w = new Date(d.window);
+      const inDays = Math.ceil((w - NOW) / 86400000);
+      win = { mon: MON[w.getMonth()], day: String(w.getDate()), label: 'Opens ' + DAY[w.getDay()] + ', ' + MON[w.getMonth()] + ' ' + w.getDate(), time: d.windowTime, countdown: 'In ' + inDays + ' days' };
+    }
+    const remind = !!s.remind;
+
+    // Rewards (608)
+    const ids = []; if (d.kind === 'ready') for (let i = 0; i < 13; i++) ids.push(54845 - i);
+    const firstId = ids[0];
+    const claimed = s.claimed ?? ((view === 'claimed' || view === 'alreadyClaimed') && firstId ? [firstId] : []);
+    const expired = s.expired ?? (view === 'expired' && firstId ? [firstId] : []);
+    const sheetKind = s.sheet !== undefined ? s.sheet : ({ confirm: 'confirm', error: 'error', expired: 'expired', notEligible: 'notEligible' })[view] || null;
+    const targetId = s.target ?? firstId;
+    const toastKind = s.toast !== undefined ? s.toast : (view === 'claimed' ? 'claimed' : view === 'alreadyClaimed' ? 'already' : null);
+    const claiming = !!s.claiming;
+
+    const avail = ids.filter((b) => claimed.indexOf(b) === -1);
+    const rewards = avail.map((bid) => {
+      const isExp = expired.indexOf(bid) !== -1;
+      return {
+        sub: isExp ? 'Expired Nov 11 at 11:59 PM' : 'Claim by Nov 11 at 11:59 PM',
+        aria: 'Claim $15 Reward Play, reward ' + bid,
+        claimable: !isExp, expired: isExp,
+        rowStyle: 'display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 14px; border-radius: 16px; background: ' + (isExp ? 'rgba(17,29,51,.5)' : '#111D33'),
+        iconStyle: 'width: 40px; height: 40px; flex: none; border-radius: 12px; display: flex; align-items: center; justify-content: center; ' + (isExp ? 'background: rgba(255,255,255,.06); color: rgba(243,246,251,.5)' : 'background: rgba(217,185,112,.16); color: #D9B970'),
+        claim: () => this.setState({ sheet: 'confirm', target: bid, claiming: false })
+      };
+    });
+    const claimable = avail.filter((b) => expired.indexOf(b) === -1).length;
+    const claimedOpen = !!s.claimedOpen;
+    const claimedRows = claimed.map(() => ({ sub: 'Claimed today, on your Club Passport card' }));
+
+    const btnP = 'height: 52px; border-radius: 99px; border: 0; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; ';
+    const btnS = 'height: 48px; border-radius: 99px; border: 0; background: transparent; color: #F3F6FB; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer';
+    const iconBase = 'width: 52px; height: 52px; flex: none; border-radius: 16px; display: flex; align-items: center; justify-content: center; ';
+    const doClaim = () => {
+      this.setState({ sheet: 'confirm', claiming: true });
+      setTimeout(() => {
+        const cur = (this.state && this.state.claimed) || claimed;
+        this.setState({ claiming: false, sheet: null, claimed: cur.concat([targetId]), toast: 'claimed' });
+        setTimeout(() => this.setState({ toast: null }), 3200);
+      }, 900);
+    };
+    const SHEETS = {
+      confirm: { title: 'Claim $15 Reward Play?', body: 'It loads to your Club Passport card. Insert your card at any participating game to use it before Nov 11 at 11:59 PM.',
+        primaryLabel: claiming ? 'Claiming…' : 'Claim reward', secondaryLabel: 'Not now', isConfirm: true, tone: 'gold' },
+      error: { title: 'Claim didn’t go through', body: 'The reward is still yours and nothing was used. Check your connection and try again before Nov 11 at 11:59 PM.',
+        primaryLabel: claiming ? 'Trying again…' : 'Try again', secondaryLabel: 'Not now', isConfirm: false, tone: 'warn' },
+      expired: { title: 'This reward expired', body: 'Rewards from this promotion had to be claimed by Nov 11 at 11:59 PM. Expired rewards can’t be restored in the app.',
+        primaryLabel: '', secondaryLabel: 'Got it', isConfirm: false, tone: 'muted', noPrimary: true },
+      notEligible: { title: 'Not available on your account', body: 'This reward can’t be claimed on your account right now. Visit any Players Club with your card and they can check it for you.',
+        primaryLabel: '', secondaryLabel: 'Got it', isConfirm: false, tone: 'muted', noPrimary: true }
+    };
+    const sh = SHEETS[sheetKind] || SHEETS.confirm;
+    const sheet = {
+      title: sh.title, body: sh.body, isConfirm: sh.isConfirm, isProblem: !sh.isConfirm,
+      hasPrimary: !sh.noPrimary, primaryLabel: sh.primaryLabel, secondaryLabel: sh.secondaryLabel,
+      primary: doClaim,
+      primaryStyle: btnP + (claiming ? 'background: rgba(217,185,112,.55); color: #0A1324' : 'background: #D9B970; color: #0A1324'),
+      secondaryStyle: sh.noPrimary ? btnP + 'background: #F3F6FB; color: #0A1324' : btnS,
+      iconStyle: iconBase + (sh.tone === 'gold' ? 'background: rgba(217,185,112,.16); color: #D9B970' : sh.tone === 'warn' ? 'background: rgba(240,163,94,.16); color: #F5B97F' : 'background: rgba(255,255,255,.08); color: rgba(243,246,251,.8)')
+    };
+    const closeSheet = () => {
+      const st = { sheet: null, claiming: false };
+      if (sheetKind === 'expired') st.expired = expired.concat(targetId && expired.indexOf(targetId) === -1 ? [targetId] : []);
+      this.setState(st);
+    };
+
+    const descLong = (d.desc || '').length > 240;
+    const expanded = !!s.expanded;
+
+    return {
+      p, goals, rewards, streakDays, milestones, win,
+      isStreak: d.kind === 'streak', isMilestone: d.kind === 'milestone', isUpcoming: d.kind === 'upcoming',
+      progressTitle: d.kind === 'upcoming' ? 'When it runs' : 'Your progress',
+      hasHow: !!d.how, how: d.how,
+      remind, remindSub: remind ? 'We’ll notify you when it opens' : 'Get a notification when it opens',
+      toggleRemind: () => this.setState({ remind: !remind }),
+      switchStyle: 'flex: none; width: 52px; height: 32px; border-radius: 99px; border: 0; padding: 3px; cursor: pointer; display: flex; ' + (remind ? 'background: #9CC3F5; justify-content: flex-end' : 'background: rgba(255,255,255,.16); justify-content: flex-start'),
+      knobStyle: 'width: 26px; height: 26px; border-radius: 99px; background: ' + (remind ? '#0A1324' : '#F3F6FB'),
+      heroStyle: 'position: relative; height: 200px; display: flex; align-items: center; justify-content: center; background: ' + (d.img ? arts[d.art].bg : '#111D33'),
+      heroFg: d.img ? arts[d.art].fg : '#D9B970',
+      hasRewards: ids.length > 0,
+      readyValue: claimable > 0 ? '$' + (claimable * 15) + ' ready' : 'All claimed',
+      readySub: claimable > 0 ? claimable + (claimable === 1 ? ' reward' : ' rewards') + ' to claim by Nov 11 at 11:59 PM' : 'Every reward is on your card.',
+      hasClaimed: claimed.length > 0, claimedOpen, claimedRows,
+      claimedLabel: 'Claimed (' + claimed.length + ')', claimedToggle: claimedOpen ? 'Hide' : 'Show',
+      toggleClaimed: () => this.setState({ claimedOpen: !claimedOpen }),
+      descStyle: 'margin: 0; font-size: 14px; line-height: 1.6; color: rgba(243,246,251,.78); white-space: pre-line; ' + (descLong && !expanded ? 'display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden' : ''),
+      showMore: descLong, moreLabel: expanded ? 'Show less' : 'Read more',
+      toggleDesc: () => this.setState({ expanded: !expanded }),
+      sheetOpen: !!sheetKind, sheet, claiming, closeSheet,
+      toastOpen: !!toastKind,
+      toastTitle: toastKind === 'already' ? 'Already claimed' : 'Claimed $15 Reward Play',
+      toastSub: toastKind === 'already' ? 'You claimed this on another device. It’s on your card.' : 'It’s on your Club Passport card now.'
+    };
+  }
+}
+</script>
+</body>
+</html>
