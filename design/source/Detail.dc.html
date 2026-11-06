@@ -295,7 +295,7 @@ class Component extends DCLogic {
     const arts = [{ bg: '#135A67', fg: '#3DB4C6' }, { bg: '#75104F', fg: '#E0369B' }];
     const chip = 'display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 99px; font-size: 12px; font-weight: 700; ';
     const endD = new Date(d.end);
-    const days = Math.ceil((endD - NOW) / 86400000);
+    const days = Math.round((new Date(endD.getFullYear(), endD.getMonth(), endD.getDate()) - new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate())) / 86400000);
     let endLabel, endStyle;
     if (d.todayOnly) { endLabel = 'Today only, ends 11:59 PM'; endStyle = chip + 'background: rgba(240,163,94,.18); color: #F5B97F'; }
     else if (days <= 7) { endLabel = 'Ends in ' + days + ' days'; endStyle = chip + 'background: rgba(240,163,94,.16); color: #F5B97F'; }

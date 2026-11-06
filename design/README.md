@@ -1,9 +1,13 @@
 # Design
 
-The interactive designs live on a Claude design canvas:
-**[Club Passport Promotions](https://claude.ai/artifact/MPM9jPaYRGWGtw8Kd7xzMD)**
+## Preview
 
-The canvas is private until its owner shares it. Use **Share** on the canvas to give the team access.
+Open **[design/index.html](index.html)** through GitHub Pages or a local server to see every screen, with working taps on the interactive ones.
+
+- **GitHub Pages:** once Pages is enabled for this repo (Settings → Pages → Deploy from a branch → `main` / root), the preview is at `https://<owner>.github.io/promotions-mobile-spec/`.
+- **Locally:** from the repo root run `python3 -m http.server 8000` and open http://localhost:8000/design/. Opening the HTML file directly from disk won't work, because screens load each other over HTTP.
+
+The original editable canvas is **[Club Passport Promotions](https://claude.ai/artifact/MPM9jPaYRGWGtw8Kd7xzMD)** on Claude (private until its owner shares it).
 
 Built on the Club Passport v4 theme (Montserrat + Plus Jakarta Sans, navy surfaces, gold for rewards, sky blue for progress). Full tokens are on the canvas's handoff row.
 
@@ -29,4 +33,4 @@ Built on the Club Passport v4 theme (Montserrat + Plus Jakarta Sans, navy surfac
 
 ## Source files
 
-`source/` holds the canvas's artboard files (`*.dc.html`) for reference. They render only inside the Claude design canvas, but the markup shows exact sizes, colors, and copy, and each file's script shows the display logic.
+`source/` holds one file per screen (`*.dc.html`), exported from the canvas. `source/support.js` is a small standalone runtime that renders them in any browser. The markup shows exact sizes, colors, and copy, and each file's script shows the display logic. Open a single screen with `source/Main.dc.html`; detail screens take `?promoId=627` and claim screens take `?view=expired` style parameters.

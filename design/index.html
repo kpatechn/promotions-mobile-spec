@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Club Passport Promotions: Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap">
+<style>
+  :root { --bg: #070D19; --panel: #0D1628; --ink: #F3F6FB; --mute: rgba(243,246,251,.7); --gold: #D9B970; --sky: #9CC3F5; --s: .72; --s-wide: .56; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif; }
+  header { padding: 48px 40px 8px; max-width: 1400px; }
+  h1 { margin: 0 0 8px; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 34px; font-weight: 800; }
+  header p { margin: 0; color: var(--mute); font-size: 15px; line-height: 1.6; max-width: 760px; }
+  header a { color: var(--sky); }
+  section { padding: 32px 40px 8px; }
+  h2 { margin: 0 0 6px; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 22px; font-weight: 800; }
+  section > p { margin: 0 0 20px; color: var(--mute); font-size: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 28px; }
+  figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .frame { width: calc(390px * var(--s)); height: calc(844px * var(--s)); overflow: hidden; border-radius: 22px; background: #0A1324; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+  .frame iframe { width: 390px; height: 844px; border: 0; transform: scale(var(--s)); transform-origin: 0 0; display: block; }
+  .wide .frame { border-radius: 14px; }
+  figcaption { display: flex; flex-direction: column; gap: 4px; max-width: calc(390px * var(--s)); }
+  .wide figcaption { max-width: none; }
+  figcaption b { font-size: 14px; }
+  .meta { display: flex; gap: 10px; align-items: center; font-size: 12px; color: var(--mute); }
+  .tag { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 99px; background: rgba(156,195,245,.14); color: var(--sky); font-weight: 700; font-size: 11px; }
+  .meta a { color: var(--sky); text-decoration: none; font-weight: 700; }
+  .meta a:hover { text-decoration: underline; }
+  footer { padding: 40px; color: var(--mute); font-size: 13px; }
+  @media (max-width: 700px) { :root { --s: .82; --s-wide: .28; } header, section, footer { padding-left: 20px; padding-right: 20px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Club Passport Promotions</h1>
+  <p>Mobile design preview for the promotions listing, detail, and claim flow, built on the proposed v2.1 API. Screens marked Interactive respond to taps; use “Open full size” to try them at phone size. API details are in <a href="../docs/api-requirements.md">docs/api-requirements.md</a>.</p>
+</header>
+
+<section>
+  <h2>Listing</h2>
+  <p>Tabs filter live. Cards open their detail screens.</p>
+  <div class="row" data-group="listing"></div>
+</section>
+
+<section>
+  <h2>Detail and claim</h2>
+  <p>On “Rewards ready,” tap Claim on any row to run the full claim flow.</p>
+  <div class="row" data-group="detail"></div>
+</section>
+
+<section>
+  <h2>Developer handoff</h2>
+  <p>Tokens, component specs with their API fields, display logic, and every claim outcome.</p>
+  <div class="row wide" data-group="handoff"></div>
+</section>
+
+<footer>Progress values and images are placeholders. Real images load from <code>proImageUrl</code>.</footer>
+
+<script>
+  var screens = {
+    listing: [
+      ['Main', 'Listing', true],
+      ['ListReadyEmpty', 'Ready tab empty', true],
+      ['ListLoading', 'Loading', false],
+      ['ListEmpty', 'No promotions', false],
+      ['ListError', 'Load error', true],
+      ['ListStale', 'Cached data banner', true]
+    ],
+    detail: [
+      ['DetailProgress', 'Streak', true],
+      ['DetailGoals', 'Milestone goals', true],
+      ['DetailWindow', 'Upcoming window', true],
+      ['Detail', 'Rewards ready', true],
+      ['ClaimConfirm', 'Claim: confirm', true],
+      ['Claimed', 'Claim: success', true],
+      ['ClaimError', 'Claim: service unavailable', true],
+      ['ClaimExpired', 'Claim: expired', true],
+      ['ClaimNotEligible', 'Claim: not eligible', true],
+      ['ClaimAlready', 'Claim: already claimed', true]
+    ],
+    handoff: [
+      ['Tokens', 'Design tokens', false, 1200, 1040],
+      ['Components', 'Components', false, 1200, 1320],
+      ['FieldMap', 'Display logic and claim flow', false, 1200, 1180]
+    ]
+  };
+  Object.keys(screens).forEach(function (group) {
+    var row = document.querySelector('[data-group="' + group + '"]');
+    screens[group].forEach(function (s) {
+      var file = 'source/' + s[0] + '.dc.html';
+      var w = s[3] || 390, h = s[4] || 844;
+      var scale = s[3] ? 'var(--s-wide)' : 'var(--s)';
+      var fig = document.createElement('figure');
+      var frame = document.createElement('div');
+      frame.className = 'frame';
+      frame.style.width = 'calc(' + w + 'px * ' + scale + ')';
+      frame.style.height = 'calc(' + h + 'px * ' + scale + ')';
+      var iframe = document.createElement('iframe');
+      iframe.src = file;
+      iframe.title = s[1];
+      iframe.loading = 'lazy';
+      iframe.style.width = w + 'px';
+      iframe.style.height = h + 'px';
+      iframe.style.transform = 'scale(' + scale + ')';
+      frame.appendChild(iframe);
+      var cap = document.createElement('figcaption');
+      cap.innerHTML = '<b></b><span class="meta"></span>';
+      cap.querySelector('b').textContent = s[1];
+      var meta = cap.querySelector('.meta');
+      if (s[2]) { var t = document.createElement('span'); t.className = 'tag'; t.textContent = 'Interactive'; meta.appendChild(t); }
+      var a = document.createElement('a'); a.href = file; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Open full size';
+      meta.appendChild(a);
+      fig.appendChild(frame); fig.appendChild(cap);
+      row.appendChild(fig);
+    });
+  });
+</script>
+</body>
+</html>

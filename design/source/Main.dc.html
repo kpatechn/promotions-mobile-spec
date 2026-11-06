@@ -231,7 +231,7 @@ class Component extends DCLogic {
 
     const all = data.map((d) => {
       const endD = new Date(d.end);
-      const days = Math.ceil((endD - NOW) / 86400000);
+      const days = Math.round((new Date(endD.getFullYear(), endD.getMonth(), endD.getDate()) - new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate())) / 86400000);
       let endLabel, endStyle;
       if (d.todayOnly) { endLabel = 'Today only'; endStyle = chip + 'background: rgba(240,163,94,.18); color: #F5B97F'; }
       else if (days <= 7) { endLabel = 'Ends in ' + days + ' days'; endStyle = chip + 'background: rgba(240,163,94,.16); color: #F5B97F'; }
