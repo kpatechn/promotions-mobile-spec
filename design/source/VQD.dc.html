@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quick Draw</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; background: #0A1324; color: #F3F6FB; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif; position: relative; overflow: hidden; box-sizing: border-box">
+
+  <sc-if value="{{isDetail}}" hint-placeholder-val="{{ true }}">
+    <div style="position: absolute; inset: 0; overflow-y: auto">
+      <div style="position: relative; height: 180px; background: #111D33; display: flex; align-items: center; justify-content: center">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#D9B970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><path d="M12 3v2M12 19v2M3 12h2M19 12h2"></path><circle cx="12" cy="12" r="1.2" fill="#D9B970"></circle></svg>
+        <a href="Main.dc.html" aria-label="Back to promotions" style="position: absolute; top: 16px; left: 16px; width: 44px; height: 44px; border-radius: 99px; background: rgba(10,19,36,.72); display: flex; align-items: center; justify-content: center; color: #F3F6FB">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+        </a>
+      </div>
+
+      <div style="padding: 20px 20px 40px; display: flex; flex-direction: column; gap: 24px">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 99px; background: rgba(156,195,245,.14); color: #9CC3F5; font-size: 12px; font-weight: 700">Daily drawing</span>
+            <span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 99px; background: rgba(255,255,255,.07); color: #F3F6FB; font-size: 12px; font-weight: 700">Runs Nov 23 to Dec 23</span>
+          </div>
+          <h1 style="margin: 0; font-family: Montserrat, ui-sans-serif, system-ui, sans-serif; font-size: 28px; font-weight: 800; line-height: 1.15">Ladies Night</h1>
+          <p style="margin: 0; font-size: 15px; line-height: 1.5; color: rgba(243,246,251,.78)">Earn tickets as you play, check them in before each draw, and claim your prize in the app if you win.</p>
+        </div>
+
+        <div style="background: #111D33; border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 16px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 12px; font-weight: 700; color: rgba(243,246,251,.68)">Next draw</span>
+              <span style="font-size: 18px; font-weight: 700">Tonight, 10:00 PM</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+              <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 24px; font-weight: 800; color: #9CC3F5">2h 14m</span>
+              <span style="font-size: 12px; color: rgba(243,246,251,.68)">to go</span>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+            <div style="background: #18263F; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 22px; font-weight: 800">8</span>
+              <span style="font-size: 12px; color: rgba(243,246,251,.7)">Earned</span>
+            </div>
+            <div style="background: #18263F; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 22px; font-weight: 800; color: #9CC3F5">{{checkedIn}}</span>
+              <span style="font-size: 12px; color: rgba(243,246,251,.7)">In this draw</span>
+            </div>
+            <div style="{{readyBoxStyle}}">
+              <span style="{{readyNumStyle}}">{{ready}}</span>
+              <span style="font-size: 12px; color: rgba(243,246,251,.7)">Ready to check in</span>
+            </div>
+          </div>
+
+          <sc-if value="{{showCheckIn}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <button onClick="{{checkIn}}" disabled="{{checking}}" style="{{checkInStyle}}">{{checkInLabel}}</button>
+              <div style="display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.45; color: rgba(243,246,251,.72)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+                <span>Check-in closes at 9:45 PM. You need to be at a participating property.</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{showCheckedIn}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div style="display: flex; gap: 10px; align-items: center; padding: 12px; border-radius: 12px; background: rgba(156,195,245,.12)">
+                <span style="width: 28px; height: 28px; flex: none; border-radius: 99px; background: #9CC3F5; color: #0A1324; display: flex; align-items: center; justify-content: center">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+                </span>
+                <span style="font-size: 14px; font-weight: 700">All 8 tickets are in tonight’s 10:00 PM draw</span>
+              </div>
+              <button onClick="{{watch}}" style="height: 52px; border-radius: 99px; border: 0; background: #F3F6FB; color: #0A1324; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Watch the draw</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{showClosed}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 12px; background: rgba(255,255,255,.06)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(243,246,251,.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+              <div style="display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 14px; font-weight: 700">Check-in closed for tonight’s draw</span>
+                <span style="font-size: 13px; line-height: 1.45; color: rgba(243,246,251,.72)">It closed at 9:45 PM. Check-in for tomorrow’s 10:00 PM draw opens at 12:00 AM.</span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <section style="display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 700">How it works</h2>
+          <sc-for list="{{steps}}" as="st" hint-placeholder-count="3">
+            <div style="display: flex; gap: 12px; align-items: flex-start">
+              <span style="width: 28px; height: 28px; flex: none; border-radius: 99px; background: #18263F; color: #D9B970; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">{{st.n}}</span>
+              <div style="display: flex; flex-direction: column; gap: 2px; padding-top: 3px">
+                <span style="font-size: 14px; font-weight: 700">{{st.t}}</span>
+                <span style="font-size: 13px; line-height: 1.45; color: rgba(243,246,251,.72)">{{st.d}}</span>
+              </div>
+            </div>
+          </sc-for>
+        </section>
+
+        <section style="display: flex; flex-direction: column; gap: 10px">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 700">Recent draws</h2>
+          <sc-for list="{{recent}}" as="r" hint-placeholder-count="2">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 16px; background: #111D33">
+              <div style="display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 14px; font-weight: 700">{{r.when}}</span>
+                <span style="font-size: 12px; color: rgba(243,246,251,.7)">{{r.sub}}</span>
+              </div>
+              <span style="font-size: 12px; font-weight: 700; color: rgba(243,246,251,.68)">{{r.you}}</span>
+            </div>
+          </sc-for>
+        </section>
+
+        <section style="display: flex; flex-direction: column; gap: 8px">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 700">Details</h2>
+          <sc-for list="{{details}}" as="dt" hint-placeholder-count="3">
+            <div style="display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.08); font-size: 14px">
+              <span style="color: rgba(243,246,251,.72)">{{dt.k}}</span>
+              <span style="font-weight: 600; text-align: right">{{dt.v}}</span>
+            </div>
+          </sc-for>
+        </section>
+      </div>
+    </div>
+
+    <sc-if value="{{showLocationSheet}}" hint-placeholder-val="{{ false }}">
+      <div style="position: absolute; inset: 0; background: rgba(3,7,15,.66)">
+        <button onClick="{{closeSheet}}" aria-label="Close" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; cursor: default"></button>
+        <div role="dialog" aria-modal="true" aria-labelledby="loc-title" style="position: absolute; left: 0; right: 0; bottom: 0; background: #111D33; border-radius: 24px 24px 0 0; padding: 12px 20px 32px; display: flex; flex-direction: column; gap: 16px">
+          <div style="width: 40px; height: 5px; border-radius: 99px; background: rgba(255,255,255,.18); align-self: center"></div>
+          <div style="display: flex; gap: 14px; align-items: center">
+            <span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: rgba(240,163,94,.16); color: #F5B97F; display: flex; align-items: center; justify-content: center">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+            </span>
+            <h2 id="loc-title" style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 20px; font-weight: 800; line-height: 1.2">You’re not at a participating property</h2>
+          </div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(243,246,251,.8)">Check-in only works on property. Your 2 tickets are safe; check them in once you arrive, before 9:45 PM.</p>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <button onClick="{{retryLocation}}" style="height: 52px; border-radius: 99px; border: 0; background: #F3F6FB; color: #0A1324; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Try again</button>
+            <button onClick="{{closeSheet}}" style="height: 48px; border-radius: 99px; border: 0; background: transparent; color: #F3F6FB; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Not now</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{toast}}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 24px; background: #F3F6FB; color: #0A1324; border-radius: 16px; padding: 14px 16px; display: flex; gap: 12px; align-items: center">
+        <span style="width: 32px; height: 32px; flex: none; border-radius: 99px; background: #0A1324; color: #9CC3F5; display: flex; align-items: center; justify-content: center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+        </span>
+        <div style="display: flex; flex-direction: column; gap: 1px">
+          <span style="font-size: 14px; font-weight: 700">2 tickets checked in</span>
+          <span style="font-size: 12px; color: rgba(10,19,36,.75)">We’ll notify you when the draw starts.</span>
+        </div>
+      </div>
+    </sc-if>
+  </sc-if>
+
+  <sc-if value="{{isCountdown}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 16px 20px 32px; box-sizing: border-box">
+      <button onClick="{{backToDetail}}" aria-label="Back to Ladies Night" style="width: 44px; height: 44px; border-radius: 99px; border: 0; background: rgba(255,255,255,.07); color: #F3F6FB; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+      </button>
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; text-align: center">
+        <span style="font-size: 13px; font-weight: 700; color: rgba(243,246,251,.72)">Ladies Night, 10:00 PM draw</span>
+        <div role="timer" aria-live="off" aria-label="{{countAria}}" style="{{ringStyle}}">
+          <div style="width: 200px; height: 200px; border-radius: 99px; background: #0A1324; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700; color: rgba(243,246,251,.72)">Drawing in</span>
+            <span style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 56px; font-weight: 800; line-height: 1">{{countLabel}}</span>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 17px; font-weight: 700">8 of your tickets are in this draw</span>
+          <span style="font-size: 14px; line-height: 1.5; color: rgba(243,246,251,.72); max-width: 290px">Results appear here when the draw ends. If you leave, we’ll send you a notification.</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isResult}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 16px 20px 32px; box-sizing: border-box; overflow-y: auto">
+      <button onClick="{{backToDetail}}" aria-label="Back to Ladies Night" style="width: 44px; height: 44px; flex: none; border-radius: 99px; border: 0; background: rgba(255,255,255,.07); color: #F3F6FB; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+      </button>
+
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-top: 24px; text-align: center">
+        <span style="{{res.iconStyle}}">
+          <sc-if value="{{res.iconWin}}" hint-placeholder-val="{{ true }}">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path></svg>
+          </sc-if>
+          <sc-if value="{{res.iconCheck}}" hint-placeholder-val="{{ false }}">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+          </sc-if>
+          <sc-if value="{{res.iconClock}}" hint-placeholder-val="{{ false }}">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+          </sc-if>
+        </span>
+        <div style="display: flex; flex-direction: column; gap: 8px; align-items: center">
+          <h1 style="margin: 0; font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 28px; font-weight: 800">{{res.title}}</h1>
+          <sc-if value="{{res.hasPrize}}" hint-placeholder-val="{{ true }}">
+            <span style="{{res.prizeStyle}}">$500 Free Play</span>
+          </sc-if>
+          <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(243,246,251,.78); max-width: 310px">{{res.body}}</p>
+        </div>
+
+        <sc-if value="{{res.showTimer}}" hint-placeholder-val="{{ true }}">
+          <div style="width: 100%; background: #111D33; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px; text-align: left; box-sizing: border-box">
+            <div style="display: flex; justify-content: space-between; align-items: baseline">
+              <span style="font-size: 13px; font-weight: 700; color: rgba(243,246,251,.75)">Claim within</span>
+              <span role="timer" style="font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 26px; font-weight: 800; color: #F5B97F">{{claimLabel}}</span>
+            </div>
+            <div style="height: 8px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden"><div style="{{claimBarStyle}}"></div></div>
+            <span style="font-size: 12px; line-height: 1.45; color: rgba(243,246,251,.7)">You need to be at a participating property to claim. Unclaimed prizes are redrawn when time runs out.</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{res.showWinners}}" hint-placeholder-val="{{ false }}">
+          <div style="width: 100%; background: #111D33; border-radius: 18px; padding: 6px 16px; display: flex; flex-direction: column; text-align: left; box-sizing: border-box">
+            <sc-for list="{{winners}}" as="w" hint-placeholder-count="3">
+              <div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.07); font-size: 14px">
+                <span style="color: rgba(243,246,251,.8)">{{w.card}}</span>
+                <span style="font-weight: 700">{{w.prize}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{res.showDetails}}" hint-placeholder-val="{{ false }}">
+          <div style="width: 100%; background: #111D33; border-radius: 18px; padding: 6px 16px; display: flex; flex-direction: column; text-align: left; box-sizing: border-box">
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.07); font-size: 14px"><span style="color: rgba(243,246,251,.75)">Winning ticket</span><span style="font-weight: 700">A-1042</span></div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 14px"><span style="color: rgba(243,246,251,.75)">Draw</span><span style="font-weight: 700">Nov 25, 10:00 PM</span></div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 20px">
+        <sc-if value="{{res.hasPrimary}}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{res.primary}}" disabled="{{claiming}}" style="{{res.primaryStyle}}">{{res.primaryLabel}}</button>
+        </sc-if>
+        <sc-if value="{{res.hasSecondary}}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{backToDetail}}" style="height: 48px; border-radius: 99px; border: 0; background: transparent; color: #F3F6FB; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{res.secondaryLabel}}</button>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["default","checkedIn","notOnProperty","closed","countdown","won","lost","claimed","missed"],"default":"default"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._t = setInterval(() => {
+      const s = this.state || {};
+      const phase = s.phase ?? (this.props.view ?? 'default');
+      if (phase === 'countdown') {
+        const secs = s.secs ?? 10;
+        if (secs <= 1) this.setState({ phase: 'won', secs: 10, claimSecs: 581 });
+        else this.setState({ secs: secs - 1 });
+      } else if (phase === 'won' && s.phase === 'won') {
+        const c = s.claimSecs ?? 581;
+        if (c > 0) this.setState({ claimSecs: c - 1 });
+      }
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  renderVals() {
+    const s = this.state || {};
+    const view = this.props.view ?? 'default';
+    const phase = s.phase ?? view;
+    const checked = s.checked ?? (view === 'checkedIn');
+    const checking = !!s.checking;
+    const sheet = s.sheet !== undefined ? s.sheet : view === 'notOnProperty';
+    const closed = phase === 'closed';
+    const detailPhases = ['default', 'checkedIn', 'notOnProperty', 'closed'];
+    const isDetail = detailPhases.indexOf(phase) !== -1;
+
+    const ready = checked ? 0 : 2;
+    const secs = s.secs ?? 10;
+    const claimSecs = s.claimSecs ?? 581;
+    const mmss = (n) => Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0');
+
+    const doCheckIn = () => {
+      this.setState({ checking: true, sheet: false });
+      setTimeout(() => {
+        this.setState({ checking: false, checked: true, toast: true, phase: 'default' });
+        setTimeout(() => this.setState({ toast: false }), 3200);
+      }, 1100);
+    };
+    const btnP = 'height: 52px; border-radius: 99px; border: 0; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; ';
+    const iconBase = 'width: 80px; height: 80px; border-radius: 99px; display: flex; align-items: center; justify-content: center; ';
+
+    const RES = {
+      won: { title: 'You won!', hasPrize: true, body: 'Your ticket was drawn in tonight’s 10:00 PM Ladies Night draw.', showTimer: true, showDetails: true,
+        primaryLabel: s.claiming ? 'Claiming…' : 'Claim prize', hasPrimary: true, secondaryLabel: '', hasSecondary: false,
+        icon: 'win', iconStyle: iconBase + 'background: rgba(217,185,112,.18); color: #D9B970',
+        prizeStyle: 'font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 36px; font-weight: 800; color: #D9B970' },
+      claimed: { title: 'Prize claimed', hasPrize: true, body: 'It’s on your Club Passport card now. Insert your card at any participating game to play it.', showDetails: true,
+        primaryLabel: 'Done', hasPrimary: true, hasSecondary: false, icon: 'check', iconStyle: iconBase + 'background: #D9B970; color: #0A1324',
+        prizeStyle: 'font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 36px; font-weight: 800; color: #D9B970' },
+      lost: { title: 'Not drawn this time', hasPrize: false, body: 'Your 8 tickets were in tonight’s 10:00 PM draw. The next draw is tomorrow at 10:00 PM; check in before 9:45 PM.', showWinners: true,
+        primaryLabel: 'Back to Ladies Night', hasPrimary: true, hasSecondary: false, icon: 'clock', iconStyle: iconBase + 'background: rgba(156,195,245,.14); color: #9CC3F5' },
+      missed: { title: 'Claim time ran out', hasPrize: true, body: 'This prize wasn’t claimed by 10:10 PM, so it was redrawn under the promotion rules. If you think this is wrong, visit any Players Club.', showDetails: true,
+        primaryLabel: 'Back to Ladies Night', hasPrimary: true, hasSecondary: false, icon: 'clock', iconStyle: iconBase + 'background: rgba(255,255,255,.08); color: rgba(243,246,251,.8)',
+        prizeStyle: 'font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 36px; font-weight: 800; color: rgba(243,246,251,.55); text-decoration: line-through' }
+    };
+    const r = RES[phase] || RES.won;
+    const res = Object.assign({ showTimer: false, showWinners: false, showDetails: false, prizeStyle: '' }, r, {
+      iconWin: r.icon === 'win', iconCheck: r.icon === 'check', iconClock: r.icon === 'clock',
+      primaryStyle: btnP + (phase === 'won' ? (s.claiming ? 'background: rgba(217,185,112,.55); color: #0A1324' : 'background: #D9B970; color: #0A1324') : 'background: #F3F6FB; color: #0A1324'),
+      primary: phase === 'won'
+        ? () => { this.setState({ claiming: true }); setTimeout(() => this.setState({ claiming: false, phase: 'claimed' }), 900); }
+        : () => this.setState({ phase: 'default', checked: true, secs: 10 })
+    });
+
+    const pct = Math.round(((10 - secs) / 10) * 100);
+    return {
+      isDetail, isCountdown: phase === 'countdown', isResult: ['won', 'lost', 'claimed', 'missed'].indexOf(phase) !== -1,
+      checkedIn: checked ? 8 : 6, ready: String(ready),
+      readyBoxStyle: 'border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 2px; ' + (ready > 0 && !closed ? 'background: rgba(217,185,112,.14); box-shadow: inset 0 0 0 1px rgba(217,185,112,.4)' : 'background: #18263F'),
+      readyNumStyle: 'font-family: Montserrat, ui-sans-serif, sans-serif; font-size: 22px; font-weight: 800; color: ' + (ready > 0 && !closed ? '#D9B970' : '#F3F6FB'),
+      showCheckIn: !checked && !closed, showCheckedIn: checked && !closed, showClosed: closed,
+      checking, checkIn: doCheckIn, retryLocation: doCheckIn,
+      checkInLabel: checking ? 'Checking your location…' : 'Check in 2 tickets',
+      checkInStyle: btnP + (checking ? 'background: rgba(217,185,112,.55); color: #0A1324' : 'background: #D9B970; color: #0A1324'),
+      showLocationSheet: isDetail && !!sheet, closeSheet: () => this.setState({ sheet: false }),
+      toast: !!s.toast,
+      watch: () => this.setState({ phase: 'countdown', secs: 10 }),
+      backToDetail: () => this.setState({ phase: 'default', checked: true, secs: 10 }),
+      countLabel: mmss(secs), countAria: 'Drawing in ' + secs + ' seconds',
+      ringStyle: 'width: 232px; height: 232px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: conic-gradient(#9CC3F5 ' + pct + '%, rgba(255,255,255,.08) 0)',
+      res, claiming: !!s.claiming,
+      claimLabel: mmss(claimSecs),
+      claimBarStyle: 'height: 100%; border-radius: 99px; background: #F5B97F; width: ' + Math.round((claimSecs / 600) * 100) + '%',
+      steps: [
+        { n: '1', t: 'Earn tickets', d: 'Play with your card. Tickets add up through the day.' },
+        { n: '2', t: 'Check in before each draw', d: 'One tap checks in all your tickets. Be on property and check in before 9:45 PM.' },
+        { n: '3', t: 'Win and claim', d: 'Results appear at draw time. Claim your prize in the app within 10 minutes.' }
+      ],
+      recent: [
+        { when: 'Nov 24, 10:00 PM', sub: '3 winners, $500 Free Play each', you: '6 tickets, not drawn' },
+        { when: 'Nov 23, 10:00 PM', sub: '3 winners, $500 Free Play each', you: 'No tickets' }
+      ],
+      details: [
+        { k: 'Schedule', v: 'Daily, 12:00 AM to 11:59 PM' },
+        { k: 'Draw time', v: '10:00 PM' },
+        { k: 'Where', v: '3 participating properties' }
+      ],
+      winners: [
+        { card: 'Card ••••2210', prize: '$500 Free Play' },
+        { card: 'Card ••••8817', prize: '$500 Free Play' },
+        { card: 'Card ••••0453', prize: '$500 Free Play' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

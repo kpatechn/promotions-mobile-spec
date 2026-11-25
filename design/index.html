@@ -52,6 +52,12 @@
 </section>
 
 <section>
+  <h2>Virtual Quick Draw</h2>
+  <p>On “Check in,” tap Check in 2 tickets, then Watch the draw to run the countdown into a win and claim it.</p>
+  <div class="row" data-group="drawings"></div>
+</section>
+
+<section>
   <h2>Developer handoff</h2>
   <p>Tokens, component specs with their API fields, display logic, and every claim outcome.</p>
   <div class="row wide" data-group="handoff"></div>
@@ -80,6 +86,18 @@
       ['ClaimExpired', 'Claim: expired', true],
       ['ClaimNotEligible', 'Claim: not eligible', true],
       ['ClaimAlready', 'Claim: already claimed', true]
+    ],
+    drawings: [
+      ['ListDrawings', 'Drawings tab', true],
+      ['VQD', 'Check in', true],
+      ['VQDChecked', 'Checked in', true],
+      ['VQDLocation', 'Not on property', true],
+      ['VQDClosed', 'Check-in closed', false],
+      ['VQDDraw', 'Draw countdown (live)', true],
+      ['VQDWon', 'You won', true],
+      ['VQDLost', 'Not drawn', true],
+      ['VQDClaimed', 'Prize claimed', true],
+      ['VQDMissed', 'Claim time ran out', true]
     ],
     handoff: [
       ['Tokens', 'Design tokens', false, 1200, 1040],

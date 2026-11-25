@@ -27,6 +27,11 @@ Built on the Club Passport v4 theme (Montserrat + Plus Jakarta Sans, navy surfac
 | Detail | Rewards ready (608) | $ summary, one row per reward, claimed group, interactive claim |
 | Claim | Confirm, success | Sheet and toast |
 | Claim | Service unavailable, expired, not eligible, already claimed | One state per API error code |
+| Quick Draw | Drawings tab | Drawing cards with check-in prompt, next draw, or draw time not announced |
+| Quick Draw | Check in (VQD) | Next draw countdown, tickets earned / in draw / ready, one-tap check-in |
+| Quick Draw | Checked in, not on property, check-in closed | Check-in results and its two blocked states |
+| Quick Draw | Draw countdown | Live 10-second countdown that reveals the result |
+| Quick Draw | You won, not drawn, prize claimed, claim time ran out | Results and the 10-minute in-app claim |
 | Handoff | Design tokens | Color, type, radius, spacing, sizes |
 | Handoff | Components | Each component with the API fields that drive it |
 | Handoff | Display logic and claim flow | Which progress pattern to show; every claim outcome |

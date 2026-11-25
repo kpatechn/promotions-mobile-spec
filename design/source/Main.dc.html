@@ -30,7 +30,7 @@ body{margin:0}
     </div>
   </header>
 
-  <div role="tablist" aria-label="Filter promotions" style="display: flex; gap: 8px; padding: 0 20px 14px">
+  <div role="tablist" aria-label="Filter promotions" style="display: flex; gap: 8px; padding: 0 20px 14px; overflow-x: auto; scrollbar-width: none">
     <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
       <button role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}<span style="{{t.countStyle}}">{{t.count}}</span></button>
     </sc-for>
@@ -129,6 +129,18 @@ body{margin:0}
               </div>
             </div>
           </sc-if>
+
+          <sc-if value="{{c.isDrawing}}" hint-placeholder-val="{{ false }}">
+            <div style="{{c.drawBoxStyle}}">
+              <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                <span style="font-size: 13px; font-weight: 700; color: #F3F6FB">{{c.drawTitle}}</span>
+                <span style="font-size: 12px; line-height: 1.4; color: rgba(243,246,251,.72)">{{c.drawSub}}</span>
+              </div>
+              <sc-if value="{{c.canCheckIn}}" hint-placeholder-val="{{ true }}">
+                <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 99px; background: #D9B970; color: #0A1324; font-size: 13px; font-weight: 700; white-space: nowrap; flex: none">Check in</span>
+              </sc-if>
+            </div>
+          </sc-if>
         </a>
       </sc-for>
     </sc-if>
@@ -201,7 +213,7 @@ body{margin:0}
   </nav>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"scenario":{"editor":"enum","options":["default","loading","empty","error","stale"],"default":"default"},"tab":{"editor":"enum","options":["all","ready","progress"],"default":"all"},"readyEmpty":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+<script type="text/x-dc" data-dc-script data-props='{"scenario":{"editor":"enum","options":["default","loading","empty","error","stale"],"default":"default"},"tab":{"editor":"enum","options":["all","ready","progress","drawings"],"default":"all"},"readyEmpty":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
   renderVals() {
     const s = this.state || {};
@@ -223,13 +235,33 @@ class Component extends DCLogic {
       { id: 631, name: 'Month-End Promotion - 30th Special', short: 'Play on the 30th to win 500 points.', end: '2026-11-30T23:00:00', img: false,
         kind: 'upcoming', window: '2026-11-30T09:00:00', windowText: '9 AM to 10 PM', goalsCount: 1 },
       { id: 627, name: '7-Day Active Gaming Challenge', short: 'Play 7 days in a row and earn 500 bonus points.', end: '2026-11-30T23:59:00', img: true, art: 1,
-        kind: 'streak', done: 2, target: 7, todayPending: true }
+        kind: 'streak', done: 2, target: 7, todayPending: true },
+      { id: 92, kind: 'drawing', name: 'Ladies Night', short: 'Daily drawing, 12:00 AM to 11:59 PM', chip: 'Draw tonight, 10 PM', soon: true,
+        drawTitle: '2 tickets ready to check in', drawSub: 'Check-in closes at 9:45 PM', canCheckIn: true },
+      { id: 93, kind: 'drawing', name: 'Senior Day', short: 'All patrons are eligible, with a special focus on senior citizens.', chip: 'Weekly drawing',
+        drawTitle: 'Next draw Tue, Dec 1, 7:00 PM', drawSub: 'No tickets yet. Play with your card to earn them.' },
+      { id: 94, kind: 'drawing', name: 'Money Mania', short: 'Open to all patrons.', chip: 'Monthly drawing',
+        drawTitle: 'Draw time not announced yet', drawSub: 'No tickets yet. Play with your card to earn them.' },
+      { id: 95, kind: 'drawing', name: 'Hooked on Hundreds', short: 'Testing', chip: 'Monthly drawing',
+        drawTitle: 'Draw time not announced yet', drawSub: 'No tickets yet. Play with your card to earn them.' }
     ];
-    const hrefs = { 608: 'Detail.dc.html', 627: 'DetailProgress.dc.html', 631: 'DetailWindow.dc.html', 614: 'DetailWindow.dc.html', 615: 'DetailGoals.dc.html' };
+    const hrefs = { 608: 'Detail.dc.html', 627: 'DetailProgress.dc.html', 631: 'DetailWindow.dc.html', 614: 'DetailWindow.dc.html', 615: 'DetailGoals.dc.html', 92: 'VQD.dc.html', 93: 'VQD.dc.html', 94: 'VQD.dc.html', 95: 'VQD.dc.html' };
     const arts = [{ bg: '#135A67', fg: '#3DB4C6' }, { bg: '#75104F', fg: '#E0369B' }];
     const chip = 'display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 99px; font-size: 11px; font-weight: 700; ';
 
+    const drawCard = (d) => ({
+      href: hrefs[d.id], name: d.name, short: d.short, hasImg: false, noImg: true, iconColor: '#D9B970',
+      thumbStyle: 'width: 64px; height: 64px; flex: none; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: #18263F',
+      endLabel: d.chip,
+      endStyle: d.soon ? chip + 'background: rgba(156,195,245,.16); color: #9CC3F5' : 'font-size: 12px; font-weight: 600; color: rgba(243,246,251,.65)',
+      cardStyle: 'display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 20px; text-decoration: none; color: inherit; background: #111D33; border: 1px solid ' + (d.canCheckIn ? 'rgba(156,195,245,.35)' : 'rgba(255,255,255,.06)'),
+      isReady: false, isGoals: false, isStreak: false, isUpcoming: false, isSingle: false, isDrawing: true,
+      segs: [], dots: [], drawTitle: d.drawTitle, drawSub: d.drawSub, canCheckIn: !!d.canCheckIn,
+      drawBoxStyle: 'display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; border-radius: 12px; background: ' + (d.canCheckIn ? 'rgba(217,185,112,.1)' : 'rgba(255,255,255,.05)')
+    });
+
     const all = data.map((d) => {
+      if (d.kind === 'drawing') return drawCard(d);
       const endD = new Date(d.end);
       const days = Math.round((new Date(endD.getFullYear(), endD.getMonth(), endD.getDate()) - new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate())) / 86400000);
       let endLabel, endStyle;
@@ -244,7 +276,7 @@ class Component extends DCLogic {
         endLabel, endStyle,
         cardStyle: 'display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 20px; text-decoration: none; color: inherit; background: #111D33; border: 1px solid ' + (isReady ? 'rgba(217,185,112,.45)' : 'rgba(255,255,255,.06)'),
         isReady, isGoals: d.kind === 'goals', isStreak: d.kind === 'streak', isUpcoming: d.kind === 'upcoming',
-        isSingle: d.kind === 'ready' && !isReady,
+        isSingle: d.kind === 'ready' && !isReady, isDrawing: false, canCheckIn: false, drawTitle: '', drawSub: '', drawBoxStyle: '',
         readyTitle: '$' + d.prizeValue + ' ready',
         readySub: d.prizes + ' rewards to claim by ' + d.prizeExp,
         segs: [], dots: [], barStyle: 'height: 100%; width: 100%; border-radius: 99px; background: #D9B970', progressLabel: 'All rewards claimed', toGo: '',
@@ -279,17 +311,18 @@ class Component extends DCLogic {
     });
 
     const ready = all.filter((c) => c.isReady);
-    const prog = all.filter((c) => !c.isReady);
-    const counts = { all: all.length, ready: ready.length, progress: prog.length };
-    const list = tab === 'ready' ? ready : tab === 'progress' ? prog : all;
+    const prog = all.filter((c) => !c.isReady && !c.isDrawing);
+    const draws = all.filter((c) => c.isDrawing);
+    const counts = { all: all.length, ready: ready.length, progress: prog.length, drawings: draws.length };
+    const list = tab === 'ready' ? ready : tab === 'progress' ? prog : tab === 'drawings' ? draws : all;
 
     const loaded = scenario === 'default' || scenario === 'stale';
-    const tabs = [['all', 'All'], ['ready', 'Ready'], ['progress', 'In progress']].map(([id, label]) => {
+    const tabs = [['all', 'All'], ['ready', 'Ready'], ['progress', 'In progress'], ['drawings', 'Drawings']].map(([id, label]) => {
       const sel = id === tab;
       return {
         label, sel, count: loaded ? counts[id] : '',
         pick: () => this.setState({ tab: id }),
-        style: 'display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 99px; border: 0; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; ' + (sel ? 'background: #F3F6FB; color: #0A1324' : 'background: rgba(255,255,255,.07); color: rgba(243,246,251,.78)'),
+        style: 'flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 99px; border: 0; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; ' + (sel ? 'background: #F3F6FB; color: #0A1324' : 'background: rgba(255,255,255,.07); color: rgba(243,246,251,.78)'),
         countStyle: loaded ? ('display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 99px; font-size: 12px; ' + (sel ? 'background: #0A1324; color: #F3F6FB' : 'background: rgba(255,255,255,.1); color: #F3F6FB')) : 'display: none'
       };
     });
